@@ -15,37 +15,37 @@ body {
     background: #f4f6f8;
 }
 
-header {
-    background: #2b7a78;
-    color: white;
+.view {
+    display: none;
     padding: 16px;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
+    padding-bottom: 80px;
 }
 
-.container {
-    padding: 16px;
+.view.active {
+    display: block;
+}
+
+header {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 16px;
 }
 
 .card {
     background: white;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 16px;
     margin-bottom: 16px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-h2 {
-    margin-top: 0;
 }
 
 .resource {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #eee;
+    cursor: pointer;
 }
 
 .resource:last-child {
@@ -69,58 +69,62 @@ button.secondary {
     background: #e0e0e0;
 }
 
-select {
-    padding: 10px;
-    font-size: 16px;
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
 }
 
-.craftable {
-    color: green;
+.nav-item {
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: #2b7a78;
     font-weight: 600;
 }
 
-.notcraftable {
-    color: #b00020;
-}
-
-.plan-output {
-    margin-top: 10px;
-    font-size: 14px;
+.detail-back {
+    margin-bottom: 10px;
+    color: #2b7a78;
+    cursor: pointer;
+    font-weight: 500;
 }
 </style>
 </head>
 
 <body>
 
-<header>Nova Scotia Crafting</header>
+<div id="inventoryView" class="view active">
+    <header>Inventory</header>
+    <div id="inventoryList"></div>
+</div>
 
-<div class="container">
+<div id="craftView" class="view">
+    <header>Craft Planner</header>
+    <div id="craftSection"></div>
+</div>
 
-    <div class="card">
-        <h2>Season</h2>
-        <select id="seasonSelect"></select>
+<div id="detailView" class="view">
+    <div class="detail-back" onclick="goBack()">← Back</div>
+    <header id="detailTitle"></header>
+    <div id="detailContent"></div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="switchView('inventoryView', this)">
+        📦<br>Inventory
     </div>
-
-    <div class="card">
-        <h2>Inventory</h2>
-        <div id="inventory"></div>
+    <div class="nav-item" onclick="switchView('craftView', this)">
+        🔧<br>Craft
     </div>
-
-    <div class="card">
-        <h2>Plan Craft</h2>
-        <select id="targetSelect"></select>
-        <button class="primary" onclick="planCraft()">Plan</button>
-        <div id="planOutput" class="plan-output"></div>
-    </div>
-
-    <div class="card">
-        <h2>Craftability</h2>
-        <div id="craftable"></div>
-    </div>
-
 </div>
 
 <script src="app.js"></script>

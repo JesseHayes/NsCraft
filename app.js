@@ -1,14 +1,16 @@
 let data;
 let inventory = JSON.parse(localStorage.getItem("inventory")) || {};
 let currentSeason = "summer";
+let currentView = "inventoryView";
+let previousView = "inventoryView";
 
 fetch("data.json")
     .then(response => response.json())
     .then(json => {
         data = json;
-        initializeTargetSelector();
-        initializeSeasonSelector();
-        renderAll();
+
+        displayInventory();
+        displayCraftView();   // NEW
     });
 
 function initializeSeasonSelector() {
@@ -36,24 +38,23 @@ function renderAll() {
 }
 
 function displayInventory() {
-    const container = document.getElementById("inventory");
+    const container = document.getElementById("inventoryList");
     container.innerHTML = "";
 
     data.resources.forEach(resource => {
         const qty = inventory[resource.id] || 0;
 
         const div = document.createElement("div");
-        div.className = "resource";
+        div.className = "card resource";
 
         div.innerHTML = `
-            <div>
+            <div onclick="openDetail('${resource.id}')">
                 <strong>${resource.name}</strong><br>
-                <small>${resource.type}</small>
+                Quantity: ${qty}
             </div>
             <div>
-                ${qty}
-                <button class="secondary" onclick="modifyInventory('${resource.id}', -1)">-</button>
-                <button class="primary" onclick="modifyInventory('${resource.id}', 1)">+</button>
+                <button class="secondary" onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
+                <button class="primary" onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
             </div>
         `;
 
@@ -69,7 +70,9 @@ function modifyInventory(resourceId, amount) {
     }
 
     localStorage.setItem("inventory", JSON.stringify(inventory));
-    renderAll();
+
+    displayInventory();
+    displayCraftView();   // refresh craft page too
 }
 
 function resourceInSeason(resourceId) {
@@ -196,4 +199,58 @@ function planCraft() {
         const resource = data.resources.find(r => r.id === resourceId);
         output.innerHTML += `${resource.name}: ${requirements[resourceId]}<br>`;
     }
+}
+
+function switchView(viewId, element) {
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    document.getElementById(viewId).classList.add("active");
+
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    if (element) element.classList.add("active");
+
+    currentView = viewId;
+}
+
+function goBack() {
+    switchView(previousView);
+}
+
+function openDetail(resourceId) {
+    const resource = data.resources.find(r => r.id === resourceId);
+
+    previousView = currentView;
+    switchView("detailView");
+
+    document.getElementById("detailTitle").textContent = resource.name;
+
+    document.getElementById("detailContent").innerHTML = `
+        <div class="card">
+            <strong>Type:</strong> ${resource.type}<br>
+            <strong>Season:</strong> ${resource.season.join(", ")}<br>
+            <strong>Regions:</strong> ${resource.regions.join(", ")}
+        </div>
+        <div class="card">
+            <strong>Description</strong><br>
+            ${resource.description || "No description yet."}
+        </div>
+    `;
+}
+
+function displayCraftView() {
+    const container = document.getElementById("craftSection");
+    container.innerHTML = "";
+
+    data.resources.forEach(resource => {
+
+        const div = document.createElement("div");
+        div.className = "card";
+
+        if (canCraftResource(resource.id)) {
+            div.innerHTML = `<strong>${resource.name}</strong> ✅ Craftable`;
+        } else {
+            div.innerHTML = `<strong>${resource.name}</strong> ❌ Not craftable`;
+        }
+
+        container.appendChild(div);
+    });
 }

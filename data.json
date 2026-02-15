@@ -5,28 +5,32 @@
       "name": "Wood",
       "type": "material",
       "season": ["all"],
-      "regions": ["forest"]
+      "regions": ["forest"],
+      "description": "Collected from fallen trees. Used for fuel and crafting charcoal."
     },
     {
       "id": "charcoal",
       "name": "Charcoal",
       "type": "material",
       "season": ["all"],
-      "regions": ["any"]
+      "regions": ["any"],
+      "description": "Nearly pure carbon, it is made by heating wood in the absence of air, evaporating water and volatiles."
     },
     {
       "id": "spruce_resin",
       "name": "Spruce Resin",
       "type": "material",
       "season": ["all"],
-      "regions": ["forest"]
+      "regions": ["forest"],
+      "description": "A viscous sap that can be collected by cutting the bark of a spruce tree."
     },
     {
       "id": "spruce_glue",
       "name": "Spruce Glue",
       "type": "material",
       "season": ["all"],
-      "regions": ["any"]
+      "regions": ["any"],
+      "description": "I have no idea, I guess an adhesive made of charcoal and spruce resin"
     }
   ],
   "recipes": [

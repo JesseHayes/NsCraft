@@ -1,0 +1,51 @@
+{
+  "resources": [
+    {
+      "id": "wood",
+      "name": "Wood",
+      "type": "material",
+      "season": ["all"],
+      "regions": ["forest"]
+    },
+    {
+      "id": "charcoal",
+      "name": "Charcoal",
+      "type": "material",
+      "season": ["all"],
+      "regions": ["any"]
+    },
+    {
+      "id": "spruce_resin",
+      "name": "Spruce Resin",
+      "type": "material",
+      "season": ["all"],
+      "regions": ["forest"]
+    },
+    {
+      "id": "spruce_glue",
+      "name": "Spruce Glue",
+      "type": "material",
+      "season": ["all"],
+      "regions": ["any"]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "make_charcoal",
+      "name": "Make Charcoal",
+      "ingredients": [
+        { "resource": "wood", "qty": 2 }
+      ],
+      "produces": "charcoal"
+    },
+    {
+      "id": "make_glue",
+      "name": "Make Spruce Glue",
+      "ingredients": [
+        { "resource": "spruce_resin", "qty": 2 },
+        { "resource": "charcoal", "qty": 1 }
+      ],
+      "produces": "spruce_glue"
+    }
+  ]
+}

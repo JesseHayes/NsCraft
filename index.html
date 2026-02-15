@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2b7a78">
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker registered.', reg))
+            .catch(err => console.log('Service Worker registration failed:', err));
+    });
+}
+</script>
+    <meta charset="UTF-8">
+    <title>Nova Scotia Resource System</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { margin-left: 5px; }
+        .section { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+    <h1>Nova Scotia Crafting System</h1>
+
+    <div class="section">
+        <h2>Current Season</h2>
+        <select id="seasonSelect"></select>
+    </div>
+
+    <div class="section">
+        <h2>Inventory</h2>
+        <div id="inventory"></div>
+    </div>
+
+    <h2>Plan a Craft</h2>
+    <select id="targetSelect"></select>
+    <button onclick="planCraft()">Plan</button>
+    <div id="planOutput"></div>
+
+    <div class="section">
+        <h2>Craftable Recipes</h2>
+        <ul id="craftable"></ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

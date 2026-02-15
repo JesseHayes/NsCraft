@@ -1,50 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NS Craft</title>
+
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2b7a78">
 
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('Service Worker registered.', reg))
-            .catch(err => console.log('Service Worker registration failed:', err));
-    });
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f4f6f8;
 }
-</script>
-    <meta charset="UTF-8">
-    <title>Nova Scotia Resource System</title>
-    <style>
-        body { font-family: Arial; padding: 20px; }
-        button { margin-left: 5px; }
-        .section { margin-bottom: 30px; }
-    </style>
+
+header {
+    background: #2b7a78;
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.container {
+    padding: 16px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.resource {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.resource:last-child {
+    border-bottom: none;
+}
+
+button {
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    margin-left: 6px;
+}
+
+button.primary {
+    background: #2b7a78;
+    color: white;
+}
+
+button.secondary {
+    background: #e0e0e0;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.craftable {
+    color: green;
+    font-weight: 600;
+}
+
+.notcraftable {
+    color: #b00020;
+}
+
+.plan-output {
+    margin-top: 10px;
+    font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Nova Scotia Crafting System</h1>
+<header>Nova Scotia Crafting</header>
 
-    <div class="section">
-        <h2>Current Season</h2>
+<div class="container">
+
+    <div class="card">
+        <h2>Season</h2>
         <select id="seasonSelect"></select>
     </div>
 
-    <div class="section">
+    <div class="card">
         <h2>Inventory</h2>
         <div id="inventory"></div>
     </div>
 
-    <h2>Plan a Craft</h2>
-    <select id="targetSelect"></select>
-    <button onclick="planCraft()">Plan</button>
-    <div id="planOutput"></div>
-
-    <div class="section">
-        <h2>Craftable Recipes</h2>
-        <ul id="craftable"></ul>
+    <div class="card">
+        <h2>Plan Craft</h2>
+        <select id="targetSelect"></select>
+        <button class="primary" onclick="planCraft()">Plan</button>
+        <div id="planOutput" class="plan-output"></div>
     </div>
 
-    <script src="app.js"></script>
+    <div class="card">
+        <h2>Craftability</h2>
+        <div id="craftable"></div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

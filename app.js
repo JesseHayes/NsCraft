@@ -43,26 +43,21 @@ function displayInventory() {
         const qty = inventory[resource.id] || 0;
 
         const div = document.createElement("div");
+        div.className = "resource";
+
         div.innerHTML = `
-            <strong>${resource.name}</strong> (${resource.type}) 
-            [Season: ${resource.season.join(", ")}]
-            <br>
-            Quantity: ${qty}
+            <div>
+                <strong>${resource.name}</strong><br>
+                <small>${resource.type}</small>
+            </div>
+            <div>
+                ${qty}
+                <button class="secondary" onclick="modifyInventory('${resource.id}', -1)">-</button>
+                <button class="primary" onclick="modifyInventory('${resource.id}', 1)">+</button>
+            </div>
         `;
 
-        const addBtn = document.createElement("button");
-        addBtn.textContent = "+";
-        addBtn.onclick = () => modifyInventory(resource.id, 1);
-
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "-";
-        removeBtn.onclick = () => modifyInventory(resource.id, -1);
-
-        div.appendChild(addBtn);
-        div.appendChild(removeBtn);
-
         container.appendChild(div);
-        container.appendChild(document.createElement("hr"));
     });
 }
 
@@ -106,20 +101,20 @@ function canCraftResource(resourceId, visited = new Set()) {
 }
 
 function displayCraftable() {
-    const list = document.getElementById("craftable");
-    list.innerHTML = "";
+    const container = document.getElementById("craftable");
+    container.innerHTML = "";
 
     data.resources.forEach(resource => {
-
-        const li = document.createElement("li");
+        const div = document.createElement("div");
+        div.className = "resource";
 
         if (canCraftResource(resource.id)) {
-            li.innerHTML = `<strong>${resource.name}</strong> ✅ craftable`;
+            div.innerHTML = `<span class="craftable">${resource.name}</span>`;
         } else {
-            li.innerHTML = `${resource.name} ❌ not craftable`;
+            div.innerHTML = `<span class="notcraftable">${resource.name}</span>`;
         }
 
-        list.appendChild(li);
+        container.appendChild(div);
     });
 }
 

@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NS Craft</title>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2b7a78">
 
@@ -123,6 +125,11 @@ button.secondary {
     <div id="craftSection"></div>
 </div>
 
+<div id="mapView" class="view">
+    <header>Resource Map</header>
+    <div id="map" style="height: calc(100vh - 140px); border-radius:12px;"></div>
+</div>
+
 <div id="detailView" class="view">
     <div class="detail-back" onclick="goBack()">← Back</div>
     <header id="detailTitle"></header>
@@ -135,6 +142,9 @@ button.secondary {
     </div>
     <div class="nav-item" onclick="switchView('craftView', this)">
         🔧<br>Craft
+    </div>
+    <div class="nav-item" onclick="switchView('mapView', this)">
+    🗺<br>Map
     </div>
 </div>
 

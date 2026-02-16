@@ -37,7 +37,7 @@
       "season": ["all"],
       "regions": ["any"],
       "tags": ["adhesive"],
-      "image": "images/sprue_glue.jpg",
+      "image": "images/spruce_glue.jpg",
       "description": "I have no idea, I guess an adhesive made of charcoal and spruce resin"
     }
   ],
@@ -48,7 +48,14 @@
       "ingredients": [
         { "resource": "wood", "qty": 2 }
       ],
-      "produces": "charcoal"
+      "produces": "charcoal",
+       "procedure": [
+      "Dig a shallow pit.",
+      "Stack wood tightly inside.",
+      "Cover with soil leaving small air vents.",
+      "Light from bottom and allow slow burn.",
+      "Seal vents once smoke turns blue."
+  ]
     },
     {
       "id": "make_glue",
@@ -57,7 +64,12 @@
         { "resource": "spruce_resin", "qty": 2 },
         { "resource": "charcoal", "qty": 1 }
       ],
-      "produces": "spruce_glue"
+      "produces": "spruce_glue",
+       "procedure": [
+        "Melt resin in clay or metal vessel",
+        "Remove impurities with straining cloth or by hand",
+        "Mix in finely powdered charcoal to improve gap filling"
+  ]
     }
   ]
 }

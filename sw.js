@@ -1,6 +1,6 @@
 //Everytime new images are added include them in cache and bump name
 
-const CACHE_NAME = "nscraft-cache-v2";
+const CACHE_NAME = "nscraft-cache-v3";
 const urlsToCache = [
     "./",
     "./index.html",
@@ -8,11 +8,12 @@ const urlsToCache = [
     "./data.json",
     "./manifest.json",
     "./icon-192.png",
-    "./icon-512.png"
+    "./icon-512.png",
     "./images/wood.jpg",
     "./images/charcoal.jpg",
     "./images/spruce_resin.jpg",
-    "./images/spruce_glue.jpg"
+    "./images/spruce_glue.jpg",
+    ",/data/mineral_occurences.json"
 ];
 
 self.addEventListener("install", event => {

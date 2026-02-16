@@ -3,6 +3,8 @@ let inventory = JSON.parse(localStorage.getItem("inventory")) || {};
 let currentSeason = "summer";
 let currentView = "inventoryView";
 let viewStack = [];
+let map;
+let mapInitialized = false;
 
 fetch("data.json")
     .then(response => response.json())
@@ -226,6 +228,14 @@ function switchView(viewId, element = null) {
         element.classList.add("active");
     }
 
+    if (viewId === "mapView") {
+    initializeMap();
+
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 100);
+}
+
     currentView = viewId;
 }
 
@@ -241,26 +251,53 @@ function goBack() {
 }
 
 function openDetail(resourceId) {
+
     const resource = data.resources.find(r => r.id === resourceId);
 
-    previousView = currentView;
     switchView("detailView");
 
     document.getElementById("detailTitle").textContent = resource.name;
+
+    // Find recipes that use this resource
+    const usedInRecipes = data.recipes.filter(recipe =>
+        recipe.ingredients.some(ing => ing.resource === resourceId)
+    );
+
+    let usesHTML = "";
+
+    if (usedInRecipes.length === 0) {
+        usesHTML = "No known crafting uses.";
+    } else {
+        usedInRecipes.forEach(recipe => {
+            usesHTML += `
+                <div onclick="openRecipeDetail('${recipe.id}')" 
+                     style="color:#2b7a78; cursor:pointer; margin-bottom:6px;">
+                    ${recipe.name}
+                </div>
+            `;
+        });
+    }
 
     document.getElementById("detailContent").innerHTML = `
         <div class="card">
             <img src="${resource.image}" class="detail-image">
         </div>
+
         <div class="card">
             <strong>Type:</strong> ${resource.type}<br>
             <strong>Season:</strong> ${resource.season.join(", ")}<br>
             <strong>Regions:</strong> ${resource.regions.join(", ")}<br>
-            <strong>Tags:</strong> ${resource.tags.join(", ")}
+            <strong>Tags:</strong> ${resource.tags?.join(", ") || ""}
         </div>
+
         <div class="card">
             <strong>Description</strong><br>
             ${resource.description}
+        </div>
+
+        <div class="card">
+            <strong>Uses</strong><br>
+            ${usesHTML}
         </div>
     `;
 }
@@ -288,39 +325,65 @@ function displayCraftView() {
 }
 
 function openRecipeDetail(recipeId) {
+
     const recipe = data.recipes.find(r => r.id === recipeId);
     const producedResource = data.resources.find(r => r.id === recipe.produces);
 
-    previousView = currentView;
     switchView("detailView");
 
     document.getElementById("detailTitle").textContent = recipe.name;
 
+    // Ingredients
     let ingredientList = "";
-
     recipe.ingredients.forEach(ing => {
         const res = data.resources.find(r => r.id === ing.resource);
-        ingredientList += `<span onclick="openDetail('${res.id}')" style="color:#2b7a78; cursor:pointer;">
-        ${res.name}
-        </span> × ${ing.qty}<br>`;
+
+        ingredientList += `
+            <div onclick="openDetail('${res.id}')" 
+                 style="color:#2b7a78; cursor:pointer; margin-bottom:6px;">
+                ${res.name} × ${ing.qty}
+            </div>
+        `;
     });
+
+    // Procedure steps
+    let procedureList = "";
+    if (recipe.procedure) {
+        recipe.procedure.forEach((step, index) => {
+            procedureList += `
+                <div style="margin-bottom:8px;">
+                    <strong>Step ${index + 1}:</strong> ${step}
+                </div>
+            `;
+        });
+    } else {
+        procedureList = "No procedure recorded.";
+    }
 
     document.getElementById("detailContent").innerHTML = `
         <div class="card">
             <strong>Produces:</strong><br>
-            ${producedResource.name}
+            <div onclick="openDetail('${producedResource.id}')" 
+                 style="color:#2b7a78; cursor:pointer;">
+                ${producedResource.name}
+            </div>
         </div>
 
         <div class="card">
-            <strong>Ingredients:</strong><br>
+            <strong>Ingredients</strong><br>
             ${ingredientList}
         </div>
 
         <div class="card">
-            <strong>Status:</strong><br>
-            ${canCraftResource(recipe.produces) ? 
-                "You can craft this now." : 
-                "You cannot craft this yet."}
+            <strong>Procedure</strong><br>
+            ${procedureList}
+        </div>
+
+        <div class="card">
+            <strong>Status</strong><br>
+            ${canCraftResource(recipe.produces) 
+                ? "You can craft this now."
+                : "You cannot craft this yet."}
         </div>
     `;
 }
@@ -339,5 +402,52 @@ function initializeTagFilter() {
         option.value = tag;
         option.textContent = tag;
         select.appendChild(option);
+    });
+}
+
+function initializeMap() {
+
+    if (mapInitialized) return;
+
+    map = L.map('map').setView([45.0, -63.0], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    fetch("data/mineral_occurrences.json")
+        .then(response => response.json())
+        .then(geojsonData => {
+
+            L.geoJSON(geojsonData, {
+                pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, {
+                        radius: 4,
+                        fillColor: "#b00020",
+                        color: "#800000",
+                        weight: 1,
+                        fillOpacity: 0.8
+                    });
+                }
+            }).addTo(map);
+
+        });
+
+    mapInitialized = true;
+}
+
+function renderMapMarkers() {
+
+    data.resources.forEach(resource => {
+
+        if (!resource.lat || !resource.lng) return;
+
+        const marker = L.marker([resource.lat, resource.lng])
+            .addTo(map)
+            .bindPopup(resource.name);
+
+        marker.on('click', function() {
+            openDetail(resource.id);
+        });
     });
 }

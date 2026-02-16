@@ -7,6 +7,7 @@ let map;
 let mapInitialized = false;
 let mineralLayer;
 let mineralData;
+let currentCategory = null;
 
 const redStarIcon = L.icon({
     iconUrl: 'images/map-icons/red-star.png',
@@ -26,8 +27,7 @@ fetch("data.json")
     .then(response => response.json())
     .then(json => {
         data = json;
-
-        initializeTagFilter();
+        renderCategoryButtons();
         displayInventory();
         displayCraftView();   // NEW
     });
@@ -57,21 +57,16 @@ function renderAll() {
 }
 
 function displayInventory() {
-    const container = document.getElementById("inventoryList");
-    const search = document.getElementById("searchInput")?.value.toLowerCase() || "";
 
+    const container = document.getElementById("inventoryList");
     container.innerHTML = "";
 
-    data.resources
-        .filter(r => {
-        const matchesSearch = r.name.toLowerCase().includes(search);
-        const selectedTag = document.getElementById("tagFilter")?.value;
-        const matchesTag = !selectedTag || r.tags?.includes(selectedTag);
-        return matchesSearch && matchesTag;
-        })
-        .forEach(resource => {
+    Object.keys(inventory)
+        .filter(id => inventory[id] > 0)
+        .forEach(id => {
 
-            const qty = inventory[resource.id] || 0;
+            const resource = data.resources.find(r => r.id === id);
+            if (!resource) return;
 
             const div = document.createElement("div");
             div.className = "card resource";
@@ -79,29 +74,38 @@ function displayInventory() {
             div.innerHTML = `
                 <div onclick="openDetail('${resource.id}')">
                     <strong>${resource.name}</strong><br>
-                    Quantity: ${qty}
+                    Quantity: ${inventory[id]}
                 </div>
                 <div>
-                    <button class="secondary" onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
-                    <button class="primary" onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
+                    <button class="secondary"
+                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
+                    <button class="primary"
+                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
                 </div>
             `;
 
             container.appendChild(div);
         });
+
+    // Optional: Show message if empty
+    if (container.innerHTML === "") {
+        container.innerHTML = "<div class='card'>No items in inventory.</div>";
+    }
 }
 
 function modifyInventory(resourceId, amount) {
+
     inventory[resourceId] = (inventory[resourceId] || 0) + amount;
 
-    if (inventory[resourceId] < 0) {
-        inventory[resourceId] = 0;
+    if (inventory[resourceId] <= 0) {
+        delete inventory[resourceId];
     }
 
     localStorage.setItem("inventory", JSON.stringify(inventory));
 
     displayInventory();
-    displayCraftView();   // refresh craft page too
+    renderCategoryResources();
+    displayCraftView();
 }
 
 function resourceInSeason(resourceId) {
@@ -404,22 +408,6 @@ function openRecipeDetail(recipeId) {
     `;
 }
 
-function initializeTagFilter() {
-    const select = document.getElementById("tagFilter");
-
-    const allTags = new Set();
-
-    data.resources.forEach(r => {
-        r.tags?.forEach(tag => allTags.add(tag));
-    });
-
-    allTags.forEach(tag => {
-        const option = document.createElement("option");
-        option.value = tag;
-        option.textContent = tag;
-        select.appendChild(option);
-    });
-}
 
 function initializeMap() {
 
@@ -628,4 +616,119 @@ function getMineralList(feature) {
     }
 
     return "";
+}
+
+function renderCategoryButtons() {
+
+    const container = document.getElementById("categoryButtons");
+    container.innerHTML = "";
+
+    // 🔹 Add "All" button first
+    const allButton = document.createElement("button");
+    allButton.className = "primary";
+    allButton.style.marginRight = "8px";
+    allButton.style.marginBottom = "8px";
+    allButton.textContent = "All";
+
+    allButton.onclick = () => openCategory("all");
+
+    container.appendChild(allButton);
+
+    // 🔹 Get unique categories
+    const categories = [...new Set(data.resources.map(r => r.type))];
+
+    categories.forEach(category => {
+
+        const button = document.createElement("button");
+        button.className = "primary";
+        button.style.marginRight = "8px";
+        button.style.marginBottom = "8px";
+        button.textContent = capitalize(category);
+
+        button.onclick = () => openCategory(category);
+
+        container.appendChild(button);
+    });
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function openCategory(category) {
+
+    if (!data || !data.resources) {
+        console.error("Data not loaded yet");
+        return;
+    }
+
+    currentCategory = category;
+
+    const title = document.getElementById("categoryTitle");
+    if (title) {
+        title.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    }
+
+    switchView("categoryView");
+
+    populateCategoryTagFilter();
+    renderCategoryResources();
+}
+
+function populateCategoryTagFilter() {
+
+    const select = document.getElementById("categoryTagFilter");
+    select.innerHTML = '<option value="">All Tags</option>';
+
+    const tags = new Set();
+
+    data.resources
+        .filter(r => currentCategory === "all" || r.type === currentCategory)
+        .forEach(r => r.tags?.forEach(tag => tags.add(tag)));
+
+    tags.forEach(tag => {
+        const option = document.createElement("option");
+        option.value = tag;
+        option.textContent = tag;
+        select.appendChild(option);
+    });
+}
+
+function renderCategoryResources() {
+
+    const container = document.getElementById("categoryResourceList");
+
+    if (!container || !currentCategory) return;
+
+    const search = document.getElementById("categorySearch")?.value.toLowerCase() || "";
+    const selectedTag = document.getElementById("categoryTagFilter")?.value || "";
+
+    container.innerHTML = "";
+
+    data.resources
+        .filter(r => currentCategory === "all" || r.type === currentCategory)
+        .filter(r => r.name.toLowerCase().includes(search))
+        .filter(r => !selectedTag || (r.tags && r.tags.includes(selectedTag)))
+        .forEach(resource => {
+
+            const qty = inventory[resource.id] || 0;
+
+            const div = document.createElement("div");
+            div.className = "card resource";
+
+            div.innerHTML = `
+                <div onclick="openDetail('${resource.id}')">
+                    <strong>${resource.name}</strong><br>
+                    Quantity: ${qty}
+                </div>
+                <div>
+                    <button class="secondary"
+                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
+                    <button class="primary"
+                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
+                </div>
+            `;
+
+            container.appendChild(div);
+        });
 }

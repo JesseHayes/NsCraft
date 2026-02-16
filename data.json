@@ -3,7 +3,7 @@
     {
       "id": "wood",
       "name": "Wood",
-      "type": "material",
+      "type": "wood",
       "season": ["all"],
       "regions": ["forest"],
       "tags": ["fuel", "building"],
@@ -13,7 +13,7 @@
     {
       "id": "charcoal",
       "name": "Charcoal",
-      "type": "material",
+      "type": "wood",
       "season": ["all"],
       "regions": ["any"],
       "tags": ["fuel"],
@@ -23,7 +23,7 @@
     {
       "id": "spruce_resin",
       "name": "Spruce Resin",
-      "type": "material",
+      "type": "wood",
       "season": ["all"],
       "regions": ["forest"],
       "tags": ["adhesive", "sealant"],
@@ -33,7 +33,7 @@
     {
       "id": "spruce_glue",
       "name": "Spruce Glue",
-      "type": "material",
+      "type": "adhesive",
       "season": ["all"],
       "regions": ["any"],
       "tags": ["adhesive"],

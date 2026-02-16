@@ -113,11 +113,26 @@ button.secondary {
 
 <div id="inventoryView" class="view active">
     <header>Inventory</header>
-    <select id="tagFilter" onchange="displayInventory()">
-    <option value="">All Tags</option>
-    </select>
-    <input type="text" id="searchInput" placeholder="Search resources..." oninput="displayInventory()">
+    <div id="categoryButtons"></div>
+    <div class="card"></div>
+    <h3>Your Inventory</h3>
     <div id="inventoryList"></div>
+</div>
+
+<div id="categoryView" class="view">
+    <div class="detail-back" onclick="goBack()">← Back</div>
+    <header id="categoryTitle"></header>
+
+    <input type="text" id="categorySearch"
+           placeholder="Search..."
+           oninput="renderCategoryResources()">
+
+    <select id="categoryTagFilter"
+            onchange="renderCategoryResources()">
+        <option value="">All Tags</option>
+    </select>
+
+    <div id="categoryResourceList"></div>
 </div>
 
 <div id="craftView" class="view">

@@ -475,19 +475,15 @@ function renderMineralLayer(geojsonData) {
 
             if (!selectedMineral) return true;
 
-            const occType = feature.properties.Occ_type;
+            const mineralList = getMineralList(feature);
 
-            let mineralList = "";
+         if (!mineralList) return false;
 
-            if (occType === "M") {
-                mineralList = feature.properties.Min_list || "";
-            }
+            const minerals = mineralList
+            .split(",")
+         .map(m => m.trim().toLowerCase());
 
-            if (occType === "I") {
-                mineralList = feature.properties.Comm_list || "";
-            }
-
-            return mineralList.toLowerCase().includes(selectedMineral.toLowerCase());
+            return minerals.includes(selectedMineral.toLowerCase());
         },
 
         pointToLayer: function(feature, latlng) {
@@ -505,17 +501,35 @@ function renderMineralLayer(geojsonData) {
 
         onEachFeature: function(feature, layer) {
 
-            const occType = feature.properties.Occ_type;
+    const mineralList = getMineralList(feature);
 
-            let mineralList = occType === "M"
-                ? feature.properties.Min_list
-                : feature.properties.Comm_list;
+    const minerals = mineralList
+        ? mineralList.split(",")
+        : [];
 
-            layer.bindPopup(`
-                <strong>${feature.properties.Name}</strong><br>
-                <strong>Minerals:</strong> ${mineralList}
-            `);
-        }
+    let mineralHTML = "";
+
+    minerals.forEach(mineral => {
+
+        const trimmed = mineral.trim();
+        const id = ensureMineralResourceExists(trimmed);
+
+        mineralHTML += `
+            <div 
+                onclick="openDetail('${id}')"
+                style="color:#2b7a78; cursor:pointer; margin-bottom:4px;">
+                ${trimmed}
+            </div>
+        `;
+    });
+
+    layer.bindPopup(`
+        <strong>${feature.properties.Name}</strong><br>
+        <strong>Type:</strong> ${feature.properties.Occ_type}<br>
+        <strong>Minerals:</strong><br>
+        ${mineralHTML || "None listed"}
+    `);
+}
 
     }).addTo(map);
 }
@@ -523,21 +537,16 @@ function renderMineralLayer(geojsonData) {
 function populateMineralFilter(geojsonData) {
 
     const select = document.getElementById("mineralFilter");
-
     const mineralSet = new Set();
 
     geojsonData.features.forEach(feature => {
 
-        const occType = feature.properties.Occ_type;
-
-        let mineralList = occType === "M"
-            ? feature.properties.Min_list
-            : feature.properties.Comm_list;
-
+        const mineralList = getMineralList(feature);
         if (!mineralList) return;
 
         mineralList.split(",").forEach(mineral => {
-            mineralSet.add(mineral.trim());
+            const trimmed = mineral.trim();
+            if (trimmed) mineralSet.add(trimmed);
         });
     });
 
@@ -551,4 +560,72 @@ function populateMineralFilter(geojsonData) {
 
 function applyMapFilter() {
     renderMineralLayer(mineralData);
+}
+
+function mineralToId(name) {
+    return name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_|_$/g, "");
+}
+
+function ensureMineralResourceExists(mineralName) {
+
+    if (!data || !data.resources) return mineralToId(mineralName);
+
+    const id = mineralToId(mineralName);
+
+    let existing = data.resources.find(r => r.id === id);
+
+    if (!existing) {
+        data.resources.push({
+            id: id,
+            name: mineralName,
+            type: "mineral",
+            season: ["all"],
+            regions: ["province-wide"],
+            tags: ["mineral"],
+            description: "Mineral occurrence identified in provincial dataset."
+        });
+
+        // Only refresh inventory if function exists
+        if (typeof displayInventory === "function") {
+            displayInventory();
+        }
+    }
+
+    return id;
+}
+
+function getMineralList(feature) {
+
+    const occType = feature.properties.Occ_type;
+
+    const minList = (feature.properties.Min_list || "").trim();
+    const commList = (feature.properties.Comm_list || "").trim();
+
+    if (occType === "M") {
+        return minList;
+    }
+
+    if (occType === "I") {
+
+        if (!commList) return minList;
+
+        const commItems = commList
+            .split(",")
+            .map(item => item.trim())
+            .filter(item => item.length > 0);
+
+        // If ANY entry is 3 characters or fewer → use Min_list
+        const anyShort = commItems.some(item => item.length <= 3);
+
+        if (anyShort) {
+            return minList;
+        }
+
+        return commList;
+    }
+
+    return "";
 }

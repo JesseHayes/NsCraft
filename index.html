@@ -97,6 +97,13 @@ button.secondary {
     cursor: pointer;
     font-weight: 500;
 }
+
+.detail-image {
+    width: 80%;
+    max-height: 1000px;
+    object-fit: cover;
+    border-radius: 12px;
+}
 </style>
 </head>
 
@@ -104,6 +111,10 @@ button.secondary {
 
 <div id="inventoryView" class="view active">
     <header>Inventory</header>
+    <select id="tagFilter" onchange="displayInventory()">
+    <option value="">All Tags</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search resources..." oninput="displayInventory()">
     <div id="inventoryList"></div>
 </div>
 

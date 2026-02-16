@@ -127,6 +127,9 @@ button.secondary {
 
 <div id="mapView" class="view">
     <header>Resource Map</header>
+    <select id="mineralFilter" onchange="applyMapFilter()">
+    <option value="">All Minerals</option>
+    </select>
     <div id="map" style="height: calc(100vh - 140px); border-radius:12px;"></div>
 </div>
 

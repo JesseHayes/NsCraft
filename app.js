@@ -5,6 +5,8 @@ let currentView = "inventoryView";
 let viewStack = [];
 let map;
 let mapInitialized = false;
+let mineralLayer;
+let mineralData;
 
 const redStarIcon = L.icon({
     iconUrl: 'images/map-icons/red-star.png',
@@ -433,55 +435,11 @@ function initializeMap() {
     .then(response => response.json())
     .then(geojsonData => {
 
-        const layer = L.geoJSON(geojsonData, {
+        mineralData = geojsonData;
 
-            pointToLayer: function(feature, latlng) {
+        populateMineralFilter(geojsonData);
 
-                const occType = feature.properties.Occ_type;
-
-                if (occType === "M") {
-                    return L.circleMarker(latlng, {
-                        radius: 6,
-                        fillColor: occType === "M" ? "red" : "blue",
-                        color: "#000",
-                        weight: 1,
-                        fillOpacity: 0.9
-                    });
-                }
-
-                if (occType === "I") {
-                    return L.circleMarker(latlng, {
-                        radius: 6,
-                        fillColor: occType === "M" ? "red" : "blue",
-                        color: "#000",
-                        weight: 1,
-                        fillOpacity: 0.9
-                    });
-                }
-
-                // Default fallback
-                return L.circleMarker(latlng, {
-                    radius: 4,
-                    fillColor: "#555",
-                    color: "#333",
-                    weight: 1,
-                    fillOpacity: 0.7
-                });
-            },
-
-            onEachFeature: function(feature, layer) {
-
-                const minList = feature.properties.Min_list || "No minerals listed";
-
-                layer.bindPopup(`
-                    <strong>${feature.properties.Name || "Mineral Occurrence"}</strong><br>
-                    <strong>Minerals:</strong> ${minList}
-                `);
-            }
-
-        }).addTo(map);
-
-        map.fitBounds(layer.getBounds());
+        renderMineralLayer(geojsonData);
     });
 
     mapInitialized = true;
@@ -501,4 +459,96 @@ function renderMapMarkers() {
             openDetail(resource.id);
         });
     });
+}
+
+function renderMineralLayer(geojsonData) {
+
+    if (mineralLayer) {
+        map.removeLayer(mineralLayer);
+    }
+
+    const selectedMineral = document.getElementById("mineralFilter")?.value;
+
+    mineralLayer = L.geoJSON(geojsonData, {
+
+        filter: function(feature) {
+
+            if (!selectedMineral) return true;
+
+            const occType = feature.properties.Occ_type;
+
+            let mineralList = "";
+
+            if (occType === "M") {
+                mineralList = feature.properties.Min_list || "";
+            }
+
+            if (occType === "I") {
+                mineralList = feature.properties.Comm_list || "";
+            }
+
+            return mineralList.toLowerCase().includes(selectedMineral.toLowerCase());
+        },
+
+        pointToLayer: function(feature, latlng) {
+
+            const occType = feature.properties.Occ_type;
+
+            return L.circleMarker(latlng, {
+                radius: 4,
+                fillColor: occType === "M" ? "red" : "blue",
+                color: "#000",
+                weight: 1,
+                fillOpacity: 0.8
+            });
+        },
+
+        onEachFeature: function(feature, layer) {
+
+            const occType = feature.properties.Occ_type;
+
+            let mineralList = occType === "M"
+                ? feature.properties.Min_list
+                : feature.properties.Comm_list;
+
+            layer.bindPopup(`
+                <strong>${feature.properties.Name}</strong><br>
+                <strong>Minerals:</strong> ${mineralList}
+            `);
+        }
+
+    }).addTo(map);
+}
+
+function populateMineralFilter(geojsonData) {
+
+    const select = document.getElementById("mineralFilter");
+
+    const mineralSet = new Set();
+
+    geojsonData.features.forEach(feature => {
+
+        const occType = feature.properties.Occ_type;
+
+        let mineralList = occType === "M"
+            ? feature.properties.Min_list
+            : feature.properties.Comm_list;
+
+        if (!mineralList) return;
+
+        mineralList.split(",").forEach(mineral => {
+            mineralSet.add(mineral.trim());
+        });
+    });
+
+    mineralSet.forEach(mineral => {
+        const option = document.createElement("option");
+        option.value = mineral;
+        option.textContent = mineral;
+        select.appendChild(option);
+    });
+}
+
+function applyMapFilter() {
+    renderMineralLayer(mineralData);
 }

@@ -6,6 +6,20 @@ let viewStack = [];
 let map;
 let mapInitialized = false;
 
+const redStarIcon = L.icon({
+    iconUrl: 'images/map-icons/red-star.png',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -14]
+});
+
+const blueStarIcon = L.icon({
+    iconUrl: 'images/map-icons/blue-star.png',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -14]
+});
+
 fetch("data.json")
     .then(response => response.json())
     .then(json => {
@@ -416,22 +430,59 @@ function initializeMap() {
     }).addTo(map);
 
     fetch("data/mineral_occurrences.json")
-        .then(response => response.json())
-        .then(geojsonData => {
+    .then(response => response.json())
+    .then(geojsonData => {
 
-            L.geoJSON(geojsonData, {
-                pointToLayer: function(feature, latlng) {
+        const layer = L.geoJSON(geojsonData, {
+
+            pointToLayer: function(feature, latlng) {
+
+                const occType = feature.properties.Occ_type;
+
+                if (occType === "M") {
                     return L.circleMarker(latlng, {
-                        radius: 4,
-                        fillColor: "#b00020",
-                        color: "#800000",
+                        radius: 6,
+                        fillColor: occType === "M" ? "red" : "blue",
+                        color: "#000",
                         weight: 1,
-                        fillOpacity: 0.8
+                        fillOpacity: 0.9
                     });
                 }
-            }).addTo(map);
 
-        });
+                if (occType === "I") {
+                    return L.circleMarker(latlng, {
+                        radius: 6,
+                        fillColor: occType === "M" ? "red" : "blue",
+                        color: "#000",
+                        weight: 1,
+                        fillOpacity: 0.9
+                    });
+                }
+
+                // Default fallback
+                return L.circleMarker(latlng, {
+                    radius: 4,
+                    fillColor: "#555",
+                    color: "#333",
+                    weight: 1,
+                    fillOpacity: 0.7
+                });
+            },
+
+            onEachFeature: function(feature, layer) {
+
+                const minList = feature.properties.Min_list || "No minerals listed";
+
+                layer.bindPopup(`
+                    <strong>${feature.properties.Name || "Mineral Occurrence"}</strong><br>
+                    <strong>Minerals:</strong> ${minList}
+                `);
+            }
+
+        }).addTo(map);
+
+        map.fitBounds(layer.getBounds());
+    });
 
     mapInitialized = true;
 }

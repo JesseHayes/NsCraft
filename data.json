@@ -1,19 +1,19 @@
 {
   "resources": [
     {
-      "id": "wood",
-      "name": "Wood",
+      "id": "sugar_maple",
+      "name": "Sugar Maple",
       "type": "wood",
       "season": ["all"],
       "regions": ["forest"],
-      "tags": ["fuel", "building"],
-      "image": "images/wood.jpg",
+      "tags": ["fuel", "building", "syrup"],
+      "image": "images/trees/sugar-maple.png",
       "description": "Collected from fallen trees. Used for fuel and crafting charcoal."
     },
     {
       "id": "charcoal",
       "name": "Charcoal",
-      "type": "wood",
+      "type": "Fuel",
       "season": ["all"],
       "regions": ["any"],
       "tags": ["fuel"],
@@ -23,7 +23,7 @@
     {
       "id": "spruce_resin",
       "name": "Spruce Resin",
-      "type": "wood",
+      "type": "Adhesive",
       "season": ["all"],
       "regions": ["forest"],
       "tags": ["adhesive", "sealant"],
@@ -33,7 +33,7 @@
     {
       "id": "spruce_glue",
       "name": "Spruce Glue",
-      "type": "adhesive",
+      "type": "Adhesive",
       "season": ["all"],
       "regions": ["any"],
       "tags": ["adhesive"],
@@ -46,7 +46,7 @@
       "id": "make_charcoal",
       "name": "Make Charcoal",
       "ingredients": [
-        { "resource": "wood", "qty": 2 }
+        { "resource": "sugar_maple", "qty": 2 }
       ],
       "produces": "charcoal",
        "procedure": [

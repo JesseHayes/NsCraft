@@ -8,6 +8,7 @@ let mapInitialized = false;
 let mineralLayer;
 let mineralData;
 let currentCategory = null;
+let imageHTML = "";
 
 const redStarIcon = L.icon({
     iconUrl: 'images/map-icons/red-star.png',
@@ -298,9 +299,37 @@ function openDetail(resourceId) {
         });
     }
 
+    // If tree has multiple identification images
+    if (resource.images) {
+
+    imageHTML = `
+        <div class="tree-images">
+
+            <div class="image-block">
+                <img src="${resource.images.leaf}" alt="Leaf">
+                <div class="image-label">Leaf</div>
+            </div>
+
+            <div class="image-block">
+                <img src="${resource.images.bark_mature}" alt="Mature Bark">
+                <div class="image-label">Mature Bark</div>
+            </div>
+
+            <div class="image-block">
+                <img src="${resource.images.bark_young}" alt="Young Bark">
+                <div class="image-label">Young Bark</div>
+            </div>
+
+        </div>
+    `;
+    }
+    else if (resource.image) {
+    imageHTML = `<img src="${resource.image}" alt="${resource.name}">`;
+    }
+
     document.getElementById("detailContent").innerHTML = `
         <div class="card">
-            <img src="${resource.image}" class="detail-image">
+            ${imageHTML}
         </div>
 
         <div class="card">

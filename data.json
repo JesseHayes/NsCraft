@@ -1,16 +1,341 @@
 {
   "resources": [
-    {
-      "id": "sugar_maple",
-      "name": "Sugar Maple",
-      "type": "wood",
-      "season": ["all"],
-      "regions": ["forest"],
-      "tags": ["fuel", "building", "syrup"],
-      "image": "images/trees/sugar-maple.png",
-      "description": "Collected from fallen trees. Used for fuel and crafting charcoal."
-    },
-    {
+{
+  "id": "sugar_maple",
+  "name": "Sugar Maple",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland", "mixedwood"],
+  "tags": ["hardwood", "dense", "fuel", "sap", "toolwood"],
+  "images": {
+    "leaf": "images/trees/sugar_maple_leaf.jpg",
+    "bark_mature": "images/trees/sugar_maple_bark_mature.jpg",
+    "bark_young": "images/trees/sugar_maple_bark_young.jpg"
+  },
+  "description": "A dense, high-value hardwood known for producing sweet sap used to make maple syrup."
+},
+{
+  "id": "red_maple",
+  "name": "Red Maple",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["wetland", "mixedwood"],
+  "tags": ["hardwood", "fuel", "moderate_density"],
+  "images": {
+    "leaf": "images/trees/red_maple_leaf.jpg",
+    "bark_mature": "images/trees/red_maple_bark_mature.jpg",
+    "bark_young": "images/trees/red_maple_bark_young.jpg"
+  },
+  "description": "A common and adaptable hardwood found throughout Nova Scotia."
+},
+{
+  "id": "striped_maple",
+  "name": "Striped Maple",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["understory"],
+  "tags": ["hardwood", "small_tree"],
+  "images": {
+    "leaf": "images/trees/striped_maple_leaf.jpg",
+    "bark_mature": "images/trees/striped_maple_bark_mature.jpg",
+    "bark_young": "images/trees/striped_maple_bark_young.jpg"
+  },
+  "description": "A small understory maple with limited timber value but useful for small tools and walking sticks."
+},
+{
+  "id": "yellow_birch",
+  "name": "Yellow Birch",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland", "mixedwood"],
+  "tags": ["hardwood", "toolwood", "fuel"],
+  "images": {
+    "leaf": "images/trees/yellow_birch_leaf.jpg",
+    "bark_mature": "images/trees/yellow_birch_bark_mature.jpg",
+    "bark_young": "images/trees/yellow_birch_bark_young.jpg"
+  },
+  "description": "A strong and durable hardwood with a wintergreen scent in its bark."
+},
+{
+  "id": "white_birch",
+  "name": "White Birch",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["disturbed", "mixedwood"],
+  "tags": ["hardwood", "bark", "tinder"],
+  "images": {
+    "leaf": "images/trees/white_birch_leaf.jpg",
+    "bark_mature": "images/trees/white_birch_bark_mature.jpg",
+    "bark_young": "images/trees/white_birch_bark_young.jpg"
+  },
+  "description": "Recognizable by its white papery bark, excellent for fire starting and traditional craft."
+},
+{
+  "id": "grey_birch",
+  "name": "Grey Birch",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["disturbed"],
+  "tags": ["hardwood", "fuel"],
+  "images": {
+    "leaf": "images/trees/grey_birch_leaf.jpg",
+    "bark_mature": "images/trees/grey_birch_bark_mature.jpg",
+    "bark_young": "images/trees/grey_birch_bark_young.jpg"
+  },
+  "description": "A short-lived birch species typically found in disturbed areas."
+},
+{
+  "id": "white_ash",
+  "name": "White Ash",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["well_drained"],
+  "tags": ["hardwood", "shock_resistant", "toolwood"],
+  "images": {
+    "leaf": "images/trees/white_ash_leaf.jpg",
+    "bark_mature": "images/trees/white_ash_bark_mature.jpg",
+    "bark_young": "images/trees/white_ash_bark_young.jpg"
+  },
+  "description": "Extremely strong and shock-resistant wood ideal for tool handles."
+},
+{
+  "id": "trembling_aspen",
+  "name": "Trembling Aspen",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["disturbed"],
+  "tags": ["hardwood", "lightweight", "fuel"],
+  "images": {
+    "leaf": "images/trees/trembling_aspen_leaf.jpg",
+    "bark_mature": "images/trees/trembling_aspen_bark_mature.jpg",
+    "bark_young": "images/trees/trembling_aspen_bark_young.jpg"
+  },
+  "description": "A fast-growing, lightweight hardwood common in regenerating forests."
+},
+{
+  "id": "largetooth_aspen",
+  "name": "Largetooth Aspen",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["disturbed"],
+  "tags": ["hardwood", "fuel"],
+  "images": {
+    "leaf": "images/trees/largetooth_aspen_leaf.jpg",
+    "bark_mature": "images/trees/largetooth_aspen_bark_mature.jpg",
+    "bark_young": "images/trees/largetooth_aspen_bark_young.jpg"
+  },
+  "description": "A low-density hardwood often found in mixed stands."
+},
+{
+  "id": "balsam_poplar",
+  "name": "Balsam Poplar",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["riparian"],
+  "tags": ["hardwood", "resin", "fuel"],
+  "images": {
+    "leaf": "images/trees/balsam_poplar_leaf.jpg",
+    "bark_mature": "images/trees/balsam_poplar_bark_mature.jpg",
+    "bark_young": "images/trees/balsam_poplar_bark_young.jpg"
+  },
+  "description": "Produces fragrant resinous buds traditionally used for salves."
+},
+{
+  "id": "american_beech",
+  "name": "American Beech",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "tags": ["hardwood", "nuts", "fuel"],
+  "images": {
+    "leaf": "images/trees/beech_leaf.jpg",
+    "bark_mature": "images/trees/beech_bark_mature.jpg",
+    "bark_young": "images/trees/beech_bark_young.jpg"
+  },
+  "description": "A smooth-barked hardwood producing edible beech nuts."
+},
+{
+  "id": "red_oak",
+  "name": "Red Oak",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "tags": ["hardwood", "strong", "acorns"],
+  "images": {
+    "leaf": "images/trees/red_oak_leaf.jpg",
+    "bark_mature": "images/trees/red_oak_bark_mature.jpg",
+    "bark_young": "images/trees/red_oak_bark_young.jpg"
+  },
+  "description": "A strong hardwood that produces acorns and valuable timber."
+},
+{
+  "id": "white_elm",
+  "name": "White Elm",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["floodplain"],
+  "tags": ["hardwood", "flexible"],
+  "images": {
+    "leaf": "images/trees/white_elm_leaf.jpg",
+    "bark_mature": "images/trees/white_elm_bark_mature.jpg",
+    "bark_young": "images/trees/white_elm_bark_young.jpg"
+  },
+  "description": "A flexible hardwood historically used in boat building."
+},
+{
+  "id": "ironwood",
+  "name": "Ironwood",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "tags": ["hardwood", "extremely_dense"],
+  "images": {
+    "leaf": "images/trees/ironwood_leaf.jpg",
+    "bark_mature": "images/trees/ironwood_bark_mature.jpg",
+    "bark_young": "images/trees/ironwood_bark_young.jpg"
+  },
+  "description": "One of the hardest native woods, excellent for wedges and mallets."
+},
+{
+  "id": "red_spruce",
+  "name": "Red Spruce",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["mixedwood"],
+  "tags": ["softwood", "construction", "tonewood"],
+  "images": {
+    "leaf": "images/trees/red_spruce_leaf.jpg",
+    "bark_mature": "images/trees/red_spruce_bark_mature.jpg",
+    "bark_young": "images/trees/red_spruce_bark_young.jpg"
+  },
+  "description": "Nova Scotia’s provincial tree and prized tonewood."
+},
+{
+  "id": "white_spruce",
+  "name": "White Spruce",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["coastal", "mixedwood"],
+  "tags": ["softwood", "construction"],
+  "images": {
+    "leaf": "images/trees/white_spruce_leaf.jpg",
+    "bark_mature": "images/trees/white_spruce_bark_mature.jpg",
+    "bark_young": "images/trees/rwhite_spruce_bark_young.jpg"
+  },
+  "description": "A fast-growing spruce commonly used in construction."
+},
+{
+  "id": "black_spruce",
+  "name": "Black Spruce",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["bog", "wetland"],
+  "tags": ["softwood", "pulpwood"],
+  "images": {
+    "leaf": "images/trees/black_spruce_leaf.jpg",
+    "bark_mature": "images/trees/black_spruce_bark_mature.jpg",
+    "bark_young": "images/trees/black_spruce_bark_young.jpg"
+  },
+  "description": "A common boreal species often found in wet soils."
+},
+{
+  "id": "white_pine",
+  "name": "White Pine",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "tags": ["softwood", "lightweight", "construction"],
+  "images": {
+    "leaf": "images/trees/white_pine_leaf.jpg",
+    "bark_mature": "images/trees/white_pine_bark_mature.jpg",
+    "bark_young": "images/trees/white_pine_bark_young.jpg"
+  },
+  "description": "A tall, valuable softwood used historically for ship masts."
+},
+{
+  "id": "red_pine",
+  "name": "Red Pine",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["well_drained"],
+  "tags": ["softwood", "rot_resistant"],
+  "images": {
+    "leaf": "images/trees/red_pine_leaf.jpg",
+    "bark_mature": "images/trees/red_pine_bark_mature.jpg",
+    "bark_young": "images/trees/red_pine_bark_young.jpg"
+  },
+  "description": "A straight-trunked pine often planted for timber."
+},
+{
+  "id": "jack_pine",
+  "name": "Jack Pine",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["sandy"],
+  "tags": ["softwood", "fuel"],
+  "images": {
+    "leaf": "images/trees/jack_pine_leaf.jpg",
+    "bark_mature": "images/trees/jack_pine_bark_mature.jpg",
+    "bark_young": "images/trees/jack_pine_bark_young.jpg"
+  },
+  "description": "A fire-adapted pine species suited to sandy soils."
+},
+{
+  "id": "eastern_hemlock",
+  "name": "Eastern Hemlock",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["shade", "mixedwood"],
+  "tags": ["softwood", "tannin", "construction"],
+  "images": {
+    "leaf": "images/trees/eastern_hemlock_leaf.jpg",
+    "bark_mature": "images/trees/eastern_hemlock_bark_mature.jpg",
+    "bark_young": "images/trees/eastern_hemlock_bark_young.jpg"
+  },
+  "description": "A long-lived shade-tolerant conifer with tannin-rich bark."
+},
+{
+  "id": "tamarack",
+  "name": "Tamarack (Eastern Larch)",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["wetland"],
+  "tags": ["softwood", "rot_resistant"],
+  "images": {
+    "leaf": "images/trees/tamarack_leaf.jpg",
+    "bark_mature": "images/trees/tamarack_bark_mature.jpg",
+    "bark_young": "images/trees/tamarack_bark_young.jpg"
+  },
+  "description": "A deciduous conifer known for its rot-resistant wood."
+},
+{
+  "id": "balsam_fir",
+  "name": "Balsam Fir",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["mixedwood"],
+  "tags": ["softwood", "resin"],
+  "images": {
+    "leaf": "images/trees/balsam_fir_leaf.jpg",
+    "bark_mature": "images/trees/balsam_fir_bark_mature.jpg",
+    "bark_young": "images/trees/balsam_fir_bark_young.jpg"
+  },
+  "description": "A common softwood with aromatic resin blisters."
+},
+{
+  "id": "eastern_white_cedar",
+  "name": "Eastern White Cedar",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["wetland"],
+  "tags": ["softwood", "rot_resistant", "fiber"],
+  "images": {
+    "leaf": "images/trees/eastern_white_cedar_leaf.jpg",
+    "bark_mature": "images/trees/eastern_white_cedar_bark_mature.jpg"
+  },
+  "description": "A durable rot-resistant softwood historically used in canoes and shingles."
+},
+{
       "id": "charcoal",
       "name": "Charcoal",
       "type": "Fuel",

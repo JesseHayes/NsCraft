@@ -1,6 +1,6 @@
 //Everytime new images are added include them in cache and bump name
 
-const CACHE_NAME = "nscraft-cache-v5";
+const CACHE_NAME = "nscraft-cache-v6";
 const urlsToCache = [
     "./",
     "./index.html",

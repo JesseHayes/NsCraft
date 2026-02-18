@@ -1,11 +1,19 @@
 {
   "resources": [
 {
+  
   "id": "sugar_maple",
   "name": "Sugar Maple",
   "type": "Wood",
   "season": ["all"],
   "regions": ["upland", "mixedwood"],
+  "density": 705,
+  "fuel_properties": {
+    "energy_density": 19.0,
+    "max_temperature": 1050,
+    "smoke_factor": 0.35,
+    "ignition_factor": 0.35
+  },
   "tags": ["hardwood", "dense", "fuel", "sap", "toolwood"],
   "images": {
     "leaf": "images/trees/sugar_maple_leaf.jpg",
@@ -20,6 +28,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["wetland", "mixedwood"],
+  "density": 630,
+  "fuel_properties": {
+    "energy_density": 18.9,
+    "max_temperature": 1000,
+    "smoke_factor": 0.4,
+    "ignition_factor": 0.4
+  },
   "tags": ["hardwood", "fuel", "moderate_density"],
   "images": {
     "leaf": "images/trees/red_maple_leaf.jpg",
@@ -34,7 +49,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["understory"],
-  "tags": ["hardwood", "small_tree"],
+  "density": 560,
+  "fuel_properties": {
+    "energy_density": 18.5,
+    "max_temperature": 950,
+    "smoke_factor": 0.45,
+    "ignition_factor": 0.5
+  },
+  "tags": ["hardwood", "small_tree", "fuel"],
   "images": {
     "leaf": "images/trees/striped_maple_leaf.jpg",
     "bark_mature": "images/trees/striped_maple_bark_mature.jpg",
@@ -48,6 +70,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["upland", "mixedwood"],
+  "density": 670,
+  "fuel_properties": {
+    "energy_density": 19.1,
+    "max_temperature": 1030,
+    "smoke_factor": 0.35,
+    "ignition_factor": 0.4
+  },
   "tags": ["hardwood", "toolwood", "fuel"],
   "images": {
     "leaf": "images/trees/yellow_birch_leaf.jpg",
@@ -62,7 +91,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["disturbed", "mixedwood"],
-  "tags": ["hardwood", "bark", "tinder"],
+  "density": 600,
+  "fuel_properties": {
+    "energy_density": 18.8,
+    "max_temperature": 980,
+    "smoke_factor": 0.5,
+    "ignition_factor": 0.85
+  },
+  "tags": ["hardwood", "bark", "tinder", "fuel"],
   "images": {
     "leaf": "images/trees/white_birch_leaf.jpg",
     "bark_mature": "images/trees/white_birch_bark_mature.jpg",
@@ -71,11 +107,102 @@
   "description": "Recognizable by its white papery bark, excellent for fire starting and traditional craft."
 },
 {
+  "id": "ironwood",
+  "name": "Ironwood",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "density": 830,
+  "fuel_properties": {
+    "energy_density": 19.2,
+    "max_temperature": 1100,
+    "smoke_factor": 0.3,
+    "ignition_factor": 0.25
+  },
+  "tags": ["hardwood", "extremely_dense", "fuel"],
+  "images": {
+    "leaf": "images/trees/ironwood_leaf.jpg",
+    "bark_mature": "images/trees/ironwood_bark_mature.jpg",
+    "bark_young": "images/trees/ironwood_bark_young.jpg"
+  },
+  "description": "One of the hardest native woods, excellent for wedges and mallets."
+},
+{
+  "id": "red_spruce",
+  "name": "Red Spruce",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["mixedwood"],
+  "density": 450,
+  "fuel_properties": {
+    "energy_density": 19.5,
+    "max_temperature": 900,
+    "smoke_factor": 0.65,
+    "ignition_factor": 0.7
+  },
+  "tags": ["softwood", "construction", "tonewood", "fuel"],
+  "images": {
+    "leaf": "images/trees/red_spruce_leaf.jpg",
+    "bark_mature": "images/trees/red_spruce_bark_mature.jpg",
+    "bark_young": "images/trees/red_spruce_bark_young.jpg"
+  },
+  "description": "Nova Scotia’s provincial tree and prized tonewood."
+},
+{
+  "id": "white_pine",
+  "name": "White Pine",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["upland"],
+  "density": 420,
+  "fuel_properties": {
+    "energy_density": 20.1,
+    "max_temperature": 880,
+    "smoke_factor": 0.75,
+    "ignition_factor": 0.8
+  },
+  "tags": ["softwood", "lightweight", "construction", "fuel"],
+  "images": {
+    "leaf": "images/trees/white_pine_leaf.jpg",
+    "bark_mature": "images/trees/white_pine_bark_mature.jpg",
+    "bark_young": "images/trees/white_pine_bark_young.jpg"
+  },
+  "description": "A tall, valuable softwood used historically for ship masts."
+},
+{
+  "id": "balsam_fir",
+  "name": "Balsam Fir",
+  "type": "Wood",
+  "season": ["all"],
+  "regions": ["mixedwood"],
+  "density": 390,
+  "fuel_properties": {
+    "energy_density": 20.3,
+    "max_temperature": 850,
+    "smoke_factor": 0.85,
+    "ignition_factor": 0.9
+  },
+  "tags": ["softwood", "resin", "fuel"],
+  "images": {
+    "leaf": "images/trees/balsam_fir_leaf.jpg",
+    "bark_mature": "images/trees/balsam_fir_bark_mature.jpg",
+    "bark_young": "images/trees/balsam_fir_bark_young.jpg"
+  },
+  "description": "A common softwood with aromatic resin blisters."
+},
+{
   "id": "grey_birch",
   "name": "Grey Birch",
   "type": "Wood",
   "season": ["all"],
   "regions": ["disturbed"],
+  "density": 580,
+  "fuel_properties": {
+    "energy_density": 18.7,
+    "max_temperature": 970,
+    "smoke_factor": 0.5,
+    "ignition_factor": 0.6
+  },
   "tags": ["hardwood", "fuel"],
   "images": {
     "leaf": "images/trees/grey_birch_leaf.jpg",
@@ -90,7 +217,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["well_drained"],
-  "tags": ["hardwood", "shock_resistant", "toolwood"],
+  "density": 670,
+  "fuel_properties": {
+    "energy_density": 19.3,
+    "max_temperature": 1040,
+    "smoke_factor": 0.35,
+    "ignition_factor": 0.4
+  },
+  "tags": ["hardwood", "shock_resistant", "toolwood", "fuel"],
   "images": {
     "leaf": "images/trees/white_ash_leaf.jpg",
     "bark_mature": "images/trees/white_ash_bark_mature.jpg",
@@ -104,6 +238,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["disturbed"],
+  "density": 420,
+  "fuel_properties": {
+    "energy_density": 18.6,
+    "max_temperature": 900,
+    "smoke_factor": 0.55,
+    "ignition_factor": 0.75
+  },
   "tags": ["hardwood", "lightweight", "fuel"],
   "images": {
     "leaf": "images/trees/trembling_aspen_leaf.jpg",
@@ -118,6 +259,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["disturbed"],
+  "density": 440,
+  "fuel_properties": {
+    "energy_density": 18.6,
+    "max_temperature": 910,
+    "smoke_factor": 0.5,
+    "ignition_factor": 0.7
+  },
   "tags": ["hardwood", "fuel"],
   "images": {
     "leaf": "images/trees/largetooth_aspen_leaf.jpg",
@@ -132,6 +280,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["riparian"],
+  "density": 420,
+  "fuel_properties": {
+    "energy_density": 18.5,
+    "max_temperature": 890,
+    "smoke_factor": 0.6,
+    "ignition_factor": 0.75
+  },
   "tags": ["hardwood", "resin", "fuel"],
   "images": {
     "leaf": "images/trees/balsam_poplar_leaf.jpg",
@@ -146,6 +301,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["upland"],
+  "density": 710,
+  "fuel_properties": {
+    "energy_density": 19.2,
+    "max_temperature": 1050,
+    "smoke_factor": 0.3,
+    "ignition_factor": 0.35
+  },
   "tags": ["hardwood", "nuts", "fuel"],
   "images": {
     "leaf": "images/trees/beech_leaf.jpg",
@@ -160,7 +322,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["upland"],
-  "tags": ["hardwood", "strong", "acorns"],
+  "density": 705,
+  "fuel_properties": {
+    "energy_density": 19.3,
+    "max_temperature": 1060,
+    "smoke_factor": 0.3,
+    "ignition_factor": 0.3
+  },
+  "tags": ["hardwood", "strong", "acorns", "fuel"],
   "images": {
     "leaf": "images/trees/red_oak_leaf.jpg",
     "bark_mature": "images/trees/red_oak_bark_mature.jpg",
@@ -174,7 +343,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["floodplain"],
-  "tags": ["hardwood", "flexible"],
+  "density": 560,
+  "fuel_properties": {
+    "energy_density": 18.9,
+    "max_temperature": 980,
+    "smoke_factor": 0.4,
+    "ignition_factor": 0.5
+  },
+  "tags": ["hardwood", "flexible", "fuel"],
   "images": {
     "leaf": "images/trees/white_elm_leaf.jpg",
     "bark_mature": "images/trees/white_elm_bark_mature.jpg",
@@ -183,44 +359,23 @@
   "description": "A flexible hardwood historically used in boat building."
 },
 {
-  "id": "ironwood",
-  "name": "Ironwood",
-  "type": "Wood",
-  "season": ["all"],
-  "regions": ["upland"],
-  "tags": ["hardwood", "extremely_dense"],
-  "images": {
-    "leaf": "images/trees/ironwood_leaf.jpg",
-    "bark_mature": "images/trees/ironwood_bark_mature.jpg",
-    "bark_young": "images/trees/ironwood_bark_young.jpg"
-  },
-  "description": "One of the hardest native woods, excellent for wedges and mallets."
-},
-{
-  "id": "red_spruce",
-  "name": "Red Spruce",
-  "type": "Wood",
-  "season": ["all"],
-  "regions": ["mixedwood"],
-  "tags": ["softwood", "construction", "tonewood"],
-  "images": {
-    "leaf": "images/trees/red_spruce_leaf.jpg",
-    "bark_mature": "images/trees/red_spruce_bark_mature.jpg",
-    "bark_young": "images/trees/red_spruce_bark_young.jpg"
-  },
-  "description": "Nova Scotia’s provincial tree and prized tonewood."
-},
-{
   "id": "white_spruce",
   "name": "White Spruce",
   "type": "Wood",
   "season": ["all"],
   "regions": ["coastal", "mixedwood"],
-  "tags": ["softwood", "construction"],
+  "density": 430,
+  "fuel_properties": {
+    "energy_density": 19.8,
+    "max_temperature": 880,
+    "smoke_factor": 0.7,
+    "ignition_factor": 0.75
+  },
+  "tags": ["softwood", "construction", "fuel"],
   "images": {
     "leaf": "images/trees/white_spruce_leaf.jpg",
     "bark_mature": "images/trees/white_spruce_bark_mature.jpg",
-    "bark_young": "images/trees/rwhite_spruce_bark_young.jpg"
+    "bark_young": "images/trees/white_spruce_bark_young.jpg"
   },
   "description": "A fast-growing spruce commonly used in construction."
 },
@@ -230,7 +385,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["bog", "wetland"],
-  "tags": ["softwood", "pulpwood"],
+  "density": 420,
+  "fuel_properties": {
+    "energy_density": 20.0,
+    "max_temperature": 870,
+    "smoke_factor": 0.75,
+    "ignition_factor": 0.8
+  },
+  "tags": ["softwood", "pulpwood", "fuel"],
   "images": {
     "leaf": "images/trees/black_spruce_leaf.jpg",
     "bark_mature": "images/trees/black_spruce_bark_mature.jpg",
@@ -239,26 +401,19 @@
   "description": "A common boreal species often found in wet soils."
 },
 {
-  "id": "white_pine",
-  "name": "White Pine",
-  "type": "Wood",
-  "season": ["all"],
-  "regions": ["upland"],
-  "tags": ["softwood", "lightweight", "construction"],
-  "images": {
-    "leaf": "images/trees/white_pine_leaf.jpg",
-    "bark_mature": "images/trees/white_pine_bark_mature.jpg",
-    "bark_young": "images/trees/white_pine_bark_young.jpg"
-  },
-  "description": "A tall, valuable softwood used historically for ship masts."
-},
-{
   "id": "red_pine",
   "name": "Red Pine",
   "type": "Wood",
   "season": ["all"],
   "regions": ["well_drained"],
-  "tags": ["softwood", "rot_resistant"],
+  "density": 500,
+  "fuel_properties": {
+    "energy_density": 20.2,
+    "max_temperature": 920,
+    "smoke_factor": 0.7,
+    "ignition_factor": 0.75
+  },
+  "tags": ["softwood", "rot_resistant", "fuel"],
   "images": {
     "leaf": "images/trees/red_pine_leaf.jpg",
     "bark_mature": "images/trees/red_pine_bark_mature.jpg",
@@ -272,6 +427,13 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["sandy"],
+  "density": 470,
+  "fuel_properties": {
+    "energy_density": 20.4,
+    "max_temperature": 910,
+    "smoke_factor": 0.8,
+    "ignition_factor": 0.85
+  },
   "tags": ["softwood", "fuel"],
   "images": {
     "leaf": "images/trees/jack_pine_leaf.jpg",
@@ -286,7 +448,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["shade", "mixedwood"],
-  "tags": ["softwood", "tannin", "construction"],
+  "density": 450,
+  "fuel_properties": {
+    "energy_density": 19.6,
+    "max_temperature": 880,
+    "smoke_factor": 0.65,
+    "ignition_factor": 0.7
+  },
+  "tags": ["softwood", "tannin", "construction", "fuel"],
   "images": {
     "leaf": "images/trees/eastern_hemlock_leaf.jpg",
     "bark_mature": "images/trees/eastern_hemlock_bark_mature.jpg",
@@ -300,7 +469,14 @@
   "type": "Wood",
   "season": ["all"],
   "regions": ["wetland"],
-  "tags": ["softwood", "rot_resistant"],
+  "density": 590,
+  "fuel_properties": {
+    "energy_density": 20.0,
+    "max_temperature": 960,
+    "smoke_factor": 0.6,
+    "ignition_factor": 0.65
+  },
+  "tags": ["softwood", "rot_resistant", "fuel"],
   "images": {
     "leaf": "images/trees/tamarack_leaf.jpg",
     "bark_mature": "images/trees/tamarack_bark_mature.jpg",
@@ -309,29 +485,23 @@
   "description": "A deciduous conifer known for its rot-resistant wood."
 },
 {
-  "id": "balsam_fir",
-  "name": "Balsam Fir",
-  "type": "Wood",
-  "season": ["all"],
-  "regions": ["mixedwood"],
-  "tags": ["softwood", "resin"],
-  "images": {
-    "leaf": "images/trees/balsam_fir_leaf.jpg",
-    "bark_mature": "images/trees/balsam_fir_bark_mature.jpg",
-    "bark_young": "images/trees/balsam_fir_bark_young.jpg"
-  },
-  "description": "A common softwood with aromatic resin blisters."
-},
-{
   "id": "eastern_white_cedar",
   "name": "Eastern White Cedar",
   "type": "Wood",
   "season": ["all"],
   "regions": ["wetland"],
-  "tags": ["softwood", "rot_resistant", "fiber"],
+  "density": 340,
+  "fuel_properties": {
+    "energy_density": 19.5,
+    "max_temperature": 820,
+    "smoke_factor": 0.7,
+    "ignition_factor": 0.85
+  },
+  "tags": ["softwood", "rot_resistant", "fiber", "fuel"],
   "images": {
     "leaf": "images/trees/eastern_white_cedar_leaf.jpg",
-    "bark_mature": "images/trees/eastern_white_cedar_bark_mature.jpg"
+    "bark_mature": "images/trees/eastern_white_cedar_bark_mature.jpg",
+    "bark_young": "images/trees/eastern_white_cedar_bark_young.jpg"
   },
   "description": "A durable rot-resistant softwood historically used in canoes and shingles."
 },
@@ -395,6 +565,6 @@
         "Remove impurities with straining cloth or by hand",
         "Mix in finely powdered charcoal to improve gap filling"
   ]
-    }
+}
   ]
 }

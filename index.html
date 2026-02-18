@@ -159,7 +159,12 @@ button.secondary {
 
 <div id="craftView" class="view">
     <header>Craft Planner</header>
+    <div id="firePanel" class="card"></div>
     <div id="craftSection"></div>
+</div>
+
+<div id="fireView" class="view">
+    <div id="fireContainer"></div>
 </div>
 
 <div id="mapView" class="view">
@@ -183,10 +188,14 @@ button.secondary {
     <div class="nav-item" onclick="switchView('craftView', this)">
         🔧<br>Craft
     </div>
+     <div class="nav-item" onclick="switchView('fireView', this)">
+        🔥<br>Fire
+    </div>
     <div class="nav-item" onclick="switchView('mapView', this)">
     🗺<br>Map
     </div>
 </div>
+
 
 <script src="app.js"></script>
 </body>

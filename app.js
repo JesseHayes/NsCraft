@@ -9,6 +9,7 @@ let mineralLayer;
 let mineralData;
 let currentCategory = null;
 let imageHTML = "";
+let activeFire = null;
 
 const redStarIcon = L.icon({
     iconUrl: 'images/map-icons/red-star.png',
@@ -62,20 +63,39 @@ function displayInventory() {
     const container = document.getElementById("inventoryList");
     container.innerHTML = "";
 
-    Object.keys(inventory)
-        .filter(id => inventory[id] > 0)
-        .forEach(id => {
+    Object.keys(inventory).forEach(id => {
 
-            const resource = data.resources.find(r => r.id === id);
-            if (!resource) return;
+        const resource = data.resources.find(r => r.id === id);
+        if (!resource) return;
 
-            const div = document.createElement("div");
-            div.className = "card resource";
+        const div = document.createElement("div");
+        div.className = "card resource";
+
+        // 🔹 WOOD (weight-based)
+        if (resource.type === "Wood") {
+
+            const weight = inventory[id]?.weight_kg || 0;
+
+            if (weight <= 0) return;
 
             div.innerHTML = `
                 <div onclick="openDetail('${resource.id}')">
                     <strong>${resource.name}</strong><br>
-                    Quantity: ${inventory[id]}
+                    Total Weight: ${weight.toFixed(2)} kg
+                </div>
+            `;
+        }
+
+        // 🔹 NORMAL ITEMS (quantity-based)
+        else {
+
+            const qty = inventory[id] || 0;
+            if (qty <= 0) return;
+
+            div.innerHTML = `
+                <div onclick="openDetail('${resource.id}')">
+                    <strong>${resource.name}</strong><br>
+                    Quantity: ${qty}
                 </div>
                 <div>
                     <button class="secondary"
@@ -84,11 +104,11 @@ function displayInventory() {
                         onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
                 </div>
             `;
+        }
 
-            container.appendChild(div);
-        });
+        container.appendChild(div);
+    });
 
-    // Optional: Show message if empty
     if (container.innerHTML === "") {
         container.innerHTML = "<div class='card'>No items in inventory.</div>";
     }
@@ -249,6 +269,10 @@ function switchView(viewId, element = null) {
         element.classList.add("active");
     }
 
+    if (viewId === "fireView") {
+        displayFireView();
+    }
+
     if (viewId === "mapView") {
     initializeMap();
 
@@ -354,12 +378,11 @@ function openDetail(resourceId) {
 function displayCraftView() {
     const container = document.getElementById("craftSection");
     container.innerHTML = "";
-
     data.recipes.forEach(recipe => {
 
         const div = document.createElement("div");
         div.className = "card resource";
-
+        
         const craftable = canCraftResource(recipe.produces);
 
         div.innerHTML = `
@@ -739,25 +762,531 @@ function renderCategoryResources() {
         .filter(r => r.name.toLowerCase().includes(search))
         .filter(r => !selectedTag || (r.tags && r.tags.includes(selectedTag)))
         .forEach(resource => {
-
-            const qty = inventory[resource.id] || 0;
-
             const div = document.createElement("div");
-            div.className = "card resource";
+            div.className = "card";
+            const isWood = resource.type === "Wood";
 
-            div.innerHTML = `
-                <div onclick="openDetail('${resource.id}')">
-                    <strong>${resource.name}</strong><br>
-                    Quantity: ${qty}
-                </div>
-                <div>
-                    <button class="secondary"
-                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
-                    <button class="primary"
-                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
-                </div>
-            `;
+if (isWood) {
+
+    const currentWeight = inventory[resource.id]?.weight_kg || 0;
+
+    div.innerHTML = `
+        <div onclick="openDetail('${resource.id}')">
+            <strong>${resource.name}</strong>
+        </div>
+
+        <div>
+            Diameter (in):
+            <input type="number" id="diam_${resource.id}" value="8" min="1" style="width:60px;">
+        </div>
+
+        <div>
+            Length (ft):
+            <input type="number" id="length_${resource.id}" value="4" min="1" style="width:60px;">
+        </div>
+
+        <button class="primary"
+            onclick="event.stopPropagation(); addWoodToInventory('${resource.id}')">
+            Add To Inventory
+        </button>
+
+        <div>
+            Total Stored: ${currentWeight.toFixed(2)} kg
+        </div>
+    `;
+}
+else {
+
+    const qty = inventory[resource.id] || 0;
+
+    div.innerHTML = `
+    <div class="resource-info" onclick="openDetail('${resource.id}')">
+        <strong>${resource.name}</strong><br>
+        Quantity: ${qty}
+    </div>
+
+    <div class="resource-controls">
+        <button class="secondary"
+            onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
+        <button class="primary"
+            onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
+    </div>
+`;
+}
 
             container.appendChild(div);
         });
+}
+
+function estimateLogWeightImperial(diameterIn, lengthFt, densityKgPerM3) {
+
+    const diameterM = diameterIn * 0.0254;
+    const lengthM = lengthFt * 0.3048;
+
+    const radius = diameterM / 2;
+
+    const volume = Math.PI * radius * radius * lengthM;
+
+    return volume * densityKgPerM3;
+}
+
+function adjustDiameter(id, delta) {
+
+    const item = inventory[id] || { diameter_in: 0, length_ft: 0 };
+
+    item.diameter_in = Math.max(0, (item.diameter_in || 0) + delta);
+
+    updateWoodWeight(id, item);
+}
+
+function adjustLength(id, delta) {
+
+    const item = inventory[id] || { diameter_in: 0, length_ft: 0 };
+
+    item.length_ft = Math.max(0, (item.length_ft || 0) + delta);
+
+    updateWoodWeight(id, item);
+}
+
+function updateWoodWeight(id, item) {
+
+    const resource = data.resources.find(r => r.id === id);
+
+    if (!resource.density) return;
+
+    item.weight_kg = estimateLogWeightImperial(
+        item.diameter_in,
+        item.length_ft,
+        resource.density
+    );
+
+    inventory[id] = item;
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+
+    displayInventory();
+    renderCategoryResources();
+}
+
+function addWoodToInventory(id) {
+
+    const resource = data.resources.find(r => r.id === id);
+    if (!resource.density) return;
+
+    const diameter = parseFloat(document.getElementById(`diam_${id}`).value);
+    const length = parseFloat(document.getElementById(`length_${id}`).value);
+
+    if (!diameter || !length) {
+        alert("Enter valid dimensions.");
+        return;
+    }
+
+    const weight = estimateLogWeightImperial(
+        diameter,
+        length,
+        resource.density
+    );
+
+    const currentWeight = inventory[id]?.weight_kg || 0;
+
+    inventory[id] = {
+        weight_kg: currentWeight + weight
+    };
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+
+    displayInventory();
+    renderCategoryResources();
+}
+
+function renderFireCraftSection(container) {
+
+    const fuelMaterials = data.resources.filter(r =>
+        r.tags.includes("fuel") && r.fuel_properties
+    );
+
+    if (fuelMaterials.length === 0) return;
+
+    const options = fuelMaterials.map(mat =>
+        `<option value="${mat.id}">${mat.name}</option>`
+    ).join("");
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+        <h3>Fire Planning</h3>
+
+        <label>Fuel Material:</label>
+        <select id="fireMaterialSelect">${options}</select>
+
+        <label>Desired Duration (hours):</label>
+        <input type="number" id="fireDurationInput" value="2" min="0.5" step="0.5">
+
+        <button class="primary" onclick="handleFireCalculation()">
+            Calculate Fuel Needed
+        </button>
+
+        <div id="fireResult" style="margin-top:10px;"></div>
+
+        <hr>
+
+        <button class="primary" onclick="startFireFromPlanner()">
+            Start Fire With Required Fuel
+        </button>
+
+        <div id="activeFirePanel" style="margin-top:15px;"></div>
+    `;
+
+    container.appendChild(div);
+}
+
+
+function startFireFromPlanner() {
+
+    const materialId =
+        document.getElementById("fireMaterialSelect").value;
+
+    const material =
+        data.resources.find(r => r.id === materialId);
+
+    if (!material) return;
+
+    const airflow =
+        document.getElementById("fireAirflowSelect").value;
+
+    const moisture =
+        parseFloat(document.getElementById("fireMoistureInput").value);
+
+    const mode =
+        document.querySelector("input[name='fireMode']:checked").value;
+
+    let weight;
+
+    if (mode === "duration") {
+
+        const desiredHours =
+            parseFloat(document.getElementById("fireDurationInput").value);
+
+        const test = calculateCombustion(material, 1, airflow, moisture);
+        const burnRate = 1 / test.durationHours;
+
+        weight = desiredHours * burnRate;
+
+    } else {
+
+        weight =
+            parseFloat(document.getElementById("fireWeightInput").value);
+    }
+
+    const inventoryWeight =
+        inventory[materialId]?.weight_kg || 0;
+
+    if (inventoryWeight < weight) {
+        alert("Not enough fuel in inventory.");
+        return;
+    }
+
+    inventory[materialId].weight_kg -= weight;
+
+    if (inventory[materialId].weight_kg <= 0) {
+        delete inventory[materialId];
+    }
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+    displayInventory();
+
+    const results =
+        calculateCombustion(material, weight, airflow, moisture);
+
+    activeFire = {
+        material_id: materialId,
+        total_weight: weight,
+        burn_time: results.durationHours,
+        max_temperature: results.maxTemperature,
+        smoke_level: results.smokeLevel,
+        airflow,
+        moisture
+    };
+
+    renderActiveFirePanel();
+}
+
+function displayFireView() {
+
+    const container = document.getElementById("fireContainer");
+    container.innerHTML = "";
+
+    renderFirePlanner(container);
+}
+
+function renderFirePlanner(container) {
+
+    const fuelMaterials = data.resources.filter(r =>
+        r.tags.includes("fuel") && r.fuel_properties
+    );
+
+    const options = fuelMaterials.map(mat =>
+        `<option value="${mat.id}">${mat.name}</option>`
+    ).join("");
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+        <h3>Fire Planning</h3>
+
+        <label>Fuel:</label>
+        <select id="fireMaterialSelect">${options}</select>
+
+        <hr>
+
+        <label>
+            <input type="radio" name="fireMode" value="duration" checked>
+            Calculate by Duration
+        </label>
+
+        <label>
+            <input type="radio" name="fireMode" value="weight">
+            Calculate by Weight
+        </label>
+
+        <div id="durationInputBlock">
+            <label>Desired Duration (hours):</label>
+            <input type="number" id="fireDurationInput" value="2" min="0.5" step="0.5">
+        </div>
+
+        <div id="weightInputBlock" style="display:none;">
+            <label>Fuel Weight (kg):</label>
+            <input type="number" id="fireWeightInput" value="5" min="0.1" step="0.1">
+        </div>
+
+        <hr>
+
+        <label>Airflow:</label>
+        <select id="fireAirflowSelect">
+            <option value="low">Low (Sheltered)</option>
+            <option value="medium" selected>Medium (Open)</option>
+            <option value="high">High (Windy)</option>
+        </select>
+
+        <label>Moisture Content (%):</label>
+        <input type="number" id="fireMoistureInput"
+          value="15" min="0" max="60" step="1">
+
+        <div id="firePreview" style="margin-top:15px;"></div>
+
+        <button class="primary" onclick="startFireFromPlanner()">
+            Start Fire
+        </button>
+
+        <div id="activeFirePanel" style="margin-top:15px;"></div>
+    `;
+
+    container.appendChild(div);
+
+    setupFireModeToggle();
+    setupFireReactiveUpdates();
+}
+
+function setupFireModeToggle() {
+
+    document.querySelectorAll("input[name='fireMode']")
+        .forEach(radio => {
+
+            radio.addEventListener("change", () => {
+
+                const mode = document.querySelector("input[name='fireMode']:checked").value;
+
+                document.getElementById("durationInputBlock").style.display =
+                    mode === "duration" ? "block" : "none";
+
+                document.getElementById("weightInputBlock").style.display =
+                    mode === "weight" ? "block" : "none";
+            });
+        });
+}
+
+
+function startFireFromPreview() {
+
+    if (!firePreviewData) return;
+
+    const { materialId, weight, maxTemp, smoke } = firePreviewData;
+
+    const inventoryWeight = inventory[materialId]?.weight_kg || 0;
+
+    if (inventoryWeight < weight) {
+
+        alert("Not enough fuel in inventory.");
+        return;
+    }
+
+    // subtract fuel
+    inventory[materialId].weight_kg -= weight;
+
+    if (inventory[materialId].weight_kg <= 0) {
+        delete inventory[materialId];
+    }
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+    displayInventory();
+
+    activeFire = {
+        material_id: materialId,
+        total_weight: weight,
+        max_temperature: maxTemp,
+        smoke_level: smoke
+    };
+
+    renderActiveFirePanel();
+}
+
+function renderActiveFirePanel() {
+
+    const panel = document.getElementById("activeFirePanel");
+
+    if (!activeFire) {
+        panel.innerHTML = "No Active Fire";
+        return;
+    }
+
+    panel.innerHTML = `
+        <h4>Active Fire</h4>
+        Fuel: ${activeFire.material_id}<br>
+        Total Fuel: ${activeFire.total_weight.toFixed(2)} kg<br>
+        Max Temp: ${activeFire.max_temperature} °C<br>
+        Smoke Level: ${(activeFire.smoke_level * 100).toFixed(0)}%
+    `;
+}
+
+function setupFireReactiveUpdates() {
+
+    const inputs = [
+    "fireMaterialSelect",
+    "fireDurationInput",
+    "fireWeightInput",
+    "fireAirflowSelect",
+    "fireMoistureInput"
+];
+
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener("input", updateFirePreview);
+        }
+    });
+
+    document.querySelectorAll("input[name='fireMode']")
+        .forEach(radio => {
+            radio.addEventListener("change", updateFirePreview);
+        });
+
+    updateFirePreview(); // initial render
+}
+
+function updateFirePreview() {
+
+    const materialId =
+        document.getElementById("fireMaterialSelect").value;
+
+    const material =
+        data.resources.find(r => r.id === materialId);
+
+    if (!material) return;
+
+    const airflow =
+        document.getElementById("fireAirflowSelect").value;
+
+    const moisture =
+        parseFloat(document.getElementById("fireMoistureInput").value);
+
+    const mode =
+        document.querySelector("input[name='fireMode']:checked").value;
+
+    let weight;
+
+    if (mode === "duration") {
+
+        const desiredHours =
+            parseFloat(document.getElementById("fireDurationInput").value);
+
+        // Invert model to estimate required weight
+        const test = calculateCombustion(
+            material,
+            1,
+            airflow,
+            moisture
+        );
+
+        const burnRate = 1 / test.durationHours;
+
+        weight = desiredHours * burnRate;
+
+    } else {
+
+        weight =
+            parseFloat(document.getElementById("fireWeightInput").value);
+    }
+
+    const results = calculateCombustion(
+        material,
+        weight,
+        airflow,
+        moisture
+    );
+
+    const inventoryWeight =
+        inventory[materialId]?.weight_kg || 0;
+
+    document.getElementById("firePreview").innerHTML = `
+        Required Fuel: ${weight.toFixed(2)} kg<br>
+        Estimated Duration: ${results.durationHours.toFixed(2)} hrs<br>
+        Max Temperature: ${results.maxTemperature.toFixed(0)} °C<br>
+        Smoke Level: ${(results.smokeLevel * 100).toFixed(0)}%<br>
+        Available in Inventory: ${inventoryWeight.toFixed(2)} kg
+    `;
+}
+
+function calculateCombustion(material, weightKg, airflowLevel, moisturePercent) {
+
+    const fuel = material.fuel_properties;
+
+    // Base burn rate (kg/hr)
+    const baseBurnRate =
+        material.tags.includes("softwood") ? 4.0 : 2.5;
+
+    // Airflow multiplier
+    const airflowMultipliers = {
+        low: 0.6,
+        medium: 1.0,
+        high: 1.6
+    };
+
+    const airflowFactor = airflowMultipliers[airflowLevel] || 1.0;
+
+    // Moisture reduces burn efficiency
+    const moistureFraction = moisturePercent / 100;
+
+    const combustionEfficiency = Math.max(0.2, 1 - (moistureFraction * 1.2));
+
+    const effectiveBurnRate =
+        baseBurnRate * airflowFactor * combustionEfficiency;
+
+    const durationHours = weightKg / effectiveBurnRate;
+
+    const energyMJ = weightKg * fuel.energy_density * combustionEfficiency;
+
+    const smokeLevel =
+        fuel.smoke_factor * (1 + moistureFraction * 1.5) * airflowFactor;
+
+    const maxTemperature =
+        fuel.max_temperature * combustionEfficiency;
+
+    return {
+        durationHours,
+        energyMJ,
+        smokeLevel,
+        maxTemperature
+    };
 }

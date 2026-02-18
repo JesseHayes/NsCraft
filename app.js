@@ -71,40 +71,39 @@ function displayInventory() {
         const div = document.createElement("div");
         div.className = "card resource";
 
-        // 🔹 WOOD (weight-based)
-        if (resource.type === "Wood") {
+const isWood = resource.type === "Wood";
+const currentValue = isWood
+    ? inventory[id]?.weight_kg || 0
+    : inventory[id] || 0;
 
-            const weight = inventory[id]?.weight_kg || 0;
+if (currentValue <= 0) return;
 
-            if (weight <= 0) return;
+div.innerHTML = `
+    <div class="resource-info" onclick="openDetail('${resource.id}')">
+        <strong>${resource.name}</strong><br>
+        ${isWood ? "Weight" : "Quantity"}:
+        ${isWood ? currentValue.toFixed(2) + " kg" : currentValue}
+    </div>
 
-            div.innerHTML = `
-                <div onclick="openDetail('${resource.id}')">
-                    <strong>${resource.name}</strong><br>
-                    Total Weight: ${weight.toFixed(2)} kg
-                </div>
-            `;
-        }
+    <div class="resource-controls">
+        <button class="secondary"
+            onclick="event.stopPropagation(); modifyInventoryWithStep('${resource.id}', -1)">
+            -
+        </button>
 
-        // 🔹 NORMAL ITEMS (quantity-based)
-        else {
+        <input type="number"
+            id="step_${resource.id}"
+            value="${isWood ? 1 : 1}"
+            min="0.1"
+            step="0.1"
+            style="width:60px; text-align:center;">
 
-            const qty = inventory[id] || 0;
-            if (qty <= 0) return;
-
-            div.innerHTML = `
-                <div onclick="openDetail('${resource.id}')">
-                    <strong>${resource.name}</strong><br>
-                    Quantity: ${qty}
-                </div>
-                <div>
-                    <button class="secondary"
-                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">-</button>
-                    <button class="primary"
-                        onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">+</button>
-                </div>
-            `;
-        }
+        <button class="primary"
+            onclick="event.stopPropagation(); modifyInventoryWithStep('${resource.id}', 1)">
+            +
+        </button>
+    </div>
+`;
 
         container.appendChild(div);
     });
@@ -961,6 +960,20 @@ function startFireFromPlanner() {
     const mode =
         document.querySelector("input[name='fireMode']:checked").value;
 
+    const logs =
+        parseInt(document.getElementById("pieceLogs").value) || 0;
+
+    const splits =
+        parseInt(document.getElementById("pieceSplits").value) || 0;
+
+    const kindling =
+        parseInt(document.getElementById("pieceKindling").value) || 0;
+
+    if (logs + splits + kindling === 0) {
+        alert("You must specify at least one piece of wood.");
+        return;
+    }
+
     let weight;
 
     if (mode === "duration") {
@@ -968,7 +981,17 @@ function startFireFromPlanner() {
         const desiredHours =
             parseFloat(document.getElementById("fireDurationInput").value);
 
-        const test = calculateCombustion(material, 1, airflow, moisture);
+        // Estimate required weight by inverting model
+        const test = calculateCombustion(
+            material,
+            1,
+            airflow,
+            moisture,
+            logs,
+            splits,
+            kindling
+        );
+
         const burnRate = 1 / test.durationHours;
 
         weight = desiredHours * burnRate;
@@ -987,6 +1010,7 @@ function startFireFromPlanner() {
         return;
     }
 
+    // Remove fuel from inventory
     inventory[materialId].weight_kg -= weight;
 
     if (inventory[materialId].weight_kg <= 0) {
@@ -996,8 +1020,15 @@ function startFireFromPlanner() {
     localStorage.setItem("inventory", JSON.stringify(inventory));
     displayInventory();
 
-    const results =
-        calculateCombustion(material, weight, airflow, moisture);
+    const results = calculateCombustion(
+        material,
+        weight,
+        airflow,
+        moisture,
+        logs,
+        splits,
+        kindling
+    );
 
     activeFire = {
         material_id: materialId,
@@ -1005,8 +1036,12 @@ function startFireFromPlanner() {
         burn_time: results.durationHours,
         max_temperature: results.maxTemperature,
         smoke_level: results.smokeLevel,
+        ignition_difficulty: results.ignitionDifficulty,
         airflow,
-        moisture
+        moisture,
+        logs,
+        splits,
+        kindling
     };
 
     renderActiveFirePanel();
@@ -1073,6 +1108,19 @@ function renderFirePlanner(container) {
         <label>Moisture Content (%):</label>
         <input type="number" id="fireMoistureInput"
           value="15" min="0" max="60" step="1">
+
+        <hr>
+
+        <h4>Wood Breakdown</h4>
+
+        <label>Large Logs:</label>
+        <input type="number" id="pieceLogs" value="2" min="0">
+
+        <label>Medium Splits:</label>
+        <input type="number" id="pieceSplits" value="3" min="0">
+
+        <label>Kindling:</label>
+        <input type="number" id="pieceKindling" value="4" min="0">
 
         <div id="firePreview" style="margin-top:15px;"></div>
 
@@ -1167,7 +1215,10 @@ function setupFireReactiveUpdates() {
     "fireDurationInput",
     "fireWeightInput",
     "fireAirflowSelect",
-    "fireMoistureInput"
+    "fireMoistureInput",
+    "pieceLogs",
+    "pieceSplits",
+    "pieceKindling"
 ];
 
     inputs.forEach(id => {
@@ -1201,6 +1252,10 @@ function updateFirePreview() {
     const moisture =
         parseFloat(document.getElementById("fireMoistureInput").value);
 
+    const logs = parseInt(document.getElementById("pieceLogs").value) || 0;
+    const splits = parseInt(document.getElementById("pieceSplits").value) || 0;
+    const kindling = parseInt(document.getElementById("pieceKindling").value) || 0;
+
     const mode =
         document.querySelector("input[name='fireMode']:checked").value;
 
@@ -1216,7 +1271,10 @@ function updateFirePreview() {
             material,
             1,
             airflow,
-            moisture
+            moisture,
+            logs,
+            splits,
+            kindling
         );
 
         const burnRate = 1 / test.durationHours;
@@ -1230,63 +1288,231 @@ function updateFirePreview() {
     }
 
     const results = calculateCombustion(
-        material,
-        weight,
-        airflow,
-        moisture
-    );
+    material,
+    weight,
+    airflow,
+    moisture,
+    logs,
+    splits,
+    kindling
+);
 
     const inventoryWeight =
         inventory[materialId]?.weight_kg || 0;
 
     document.getElementById("firePreview").innerHTML = `
-        Required Fuel: ${weight.toFixed(2)} kg<br>
-        Estimated Duration: ${results.durationHours.toFixed(2)} hrs<br>
-        Max Temperature: ${results.maxTemperature.toFixed(0)} °C<br>
-        Smoke Level: ${(results.smokeLevel * 100).toFixed(0)}%<br>
-        Available in Inventory: ${inventoryWeight.toFixed(2)} kg
-    `;
+    Required Fuel: ${weight.toFixed(2)} kg<br>
+    Estimated Duration: ${results.durationHours.toFixed(2)} hrs<br>
+    Max Temperature: ${results.maxTemperature.toFixed(0)} °C<br>
+    Smoke Level: ${(results.smokeLevel * 100).toFixed(0)}%<br>
+    Ignition Difficulty: ${(results.ignitionDifficulty * 100).toFixed(0)}%<br>
+    Available in Inventory: ${inventoryWeight.toFixed(2)} kg
+`;
 }
 
-function calculateCombustion(material, weightKg, airflowLevel, moisturePercent) {
+function calculateSurfaceFromMassDistribution(totalMassKg, logs, splits, kindling) {
+
+    const massFactors = {
+        log: 4,
+        split: 2,
+        kindling: 1
+    };
+
+    const exposedFraction = {
+        log: 0.3,
+        split: 0.7,
+        kindling: 1.0
+    };
+
+    const totalFactor =
+        logs * massFactors.log +
+        splits * massFactors.split +
+        kindling * massFactors.kindling;
+
+    if (totalFactor === 0) {
+        return null;
+    }
+
+    const unitMass = totalMassKg / totalFactor;
+
+    const logMass = massFactors.log * unitMass;
+    const splitMass = massFactors.split * unitMass;
+    const kindlingMass = massFactors.kindling * unitMass;
+
+    // Surface ~ mass^(2/3)
+    const logSurface =
+        logs * Math.pow(logMass, 2/3) * exposedFraction.log;
+
+    const splitSurface =
+        splits * Math.pow(splitMass, 2/3) * exposedFraction.split;
+
+    const kindlingSurface =
+        kindling * Math.pow(kindlingMass, 2/3) * exposedFraction.kindling;
+
+    const totalSurface =
+        logSurface + splitSurface + kindlingSurface;
+
+    return totalSurface;
+}
+
+function calculateCombustion(material, weightKg, airflowLevel, moisturePercent, logs, splits, kindling) {
 
     const fuel = material.fuel_properties;
 
-    // Base burn rate (kg/hr)
     const baseBurnRate =
         material.tags.includes("softwood") ? 4.0 : 2.5;
 
-    // Airflow multiplier
     const airflowMultipliers = {
         low: 0.6,
         medium: 1.0,
         high: 1.6
     };
 
-    const airflowFactor = airflowMultipliers[airflowLevel] || 1.0;
+    const airflowFactor =
+        airflowMultipliers[airflowLevel] || 1.0;
 
-    // Moisture reduces burn efficiency
     const moistureFraction = moisturePercent / 100;
 
-    const combustionEfficiency = Math.max(0.2, 1 - (moistureFraction * 1.2));
+    const combustionEfficiency =
+        Math.max(0.3, 1 - (moistureFraction * 1.2));
 
+    const N = logs + splits + kindling;
+    if (N <= 0) return null;
+
+    // Surface scaling (physical)
+    const surfaceFactor =
+        calculateSurfaceFactor(weightKg, logs, splits, kindling);
+
+    // Oxygen-limited burn rate
     const effectiveBurnRate =
-        baseBurnRate * airflowFactor * combustionEfficiency;
+        baseBurnRate *
+        combustionEfficiency *
+        Math.min(surfaceFactor, airflowFactor * 2);
 
-    const durationHours = weightKg / effectiveBurnRate;
+    const durationHours =
+        weightKg / effectiveBurnRate;
 
-    const energyMJ = weightKg * fuel.energy_density * combustionEfficiency;
+    // Chemical temperature ceiling
+    const oxygenBalance =
+        airflowLevel === "medium" ? 1.0 :
+        airflowLevel === "low" ? 0.8 : 0.9;
+
+    // Burn intensity relative to base burn rate
+const burnIntensity =
+    effectiveBurnRate / baseBurnRate;
+
+// Saturation constant (tunable)
+const k = 1.5;
+
+// Temperature approaches chemical maximum asymptotically
+const maxTemperature =
+    fuel.max_temperature *
+    combustionEfficiency *
+    (1 - Math.exp(-k * burnIntensity));
+
+    const barkExposure =
+        calculateBarkExposure(logs, splits, kindling);
 
     const smokeLevel =
-        fuel.smoke_factor * (1 + moistureFraction * 1.5) * airflowFactor;
+        fuel.smoke_factor *
+        (1 + moistureFraction * 1.8) *
+        (1 / barkExposure) *
+        (airflowLevel === "low" ? 1.3 : 1.0);
 
-    const maxTemperature =
-        fuel.max_temperature * combustionEfficiency;
+    const ignitionDifficulty =
+        (1 - fuel.ignition_factor) *
+        (1 + moistureFraction * 1.5) *
+        (1 / barkExposure);
+
+    const energyMJ =
+        weightKg *
+        fuel.energy_density *
+        combustionEfficiency;
 
     return {
         durationHours,
         energyMJ,
         smokeLevel,
-        maxTemperature
+        maxTemperature,
+        ignitionDifficulty
     };
+}
+
+function removeWoodWeight(id, amountKg) {
+
+    if (!inventory[id]) return;
+
+    inventory[id].weight_kg -= amountKg;
+
+    if (inventory[id].weight_kg <= 0) {
+        delete inventory[id];
+    }
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+
+    displayInventory();
+}
+
+function modifyInventoryWithStep(id, direction) {
+
+    const resource = data.resources.find(r => r.id === id);
+    if (!resource) return;
+
+    const stepInput = document.getElementById(`step_${id}`);
+    const step = parseFloat(stepInput.value) || 1;
+
+    const isWood = resource.type === "Wood";
+
+    if (isWood) {
+
+        if (!inventory[id]) inventory[id] = { weight_kg: 0 };
+
+        inventory[id].weight_kg += direction * step;
+
+        if (inventory[id].weight_kg <= 0) {
+            delete inventory[id];
+        }
+
+    } else {
+
+        if (!inventory[id]) inventory[id] = 0;
+
+        inventory[id] += direction * step;
+
+        if (inventory[id] <= 0) {
+            delete inventory[id];
+        }
+    }
+
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+    displayInventory();
+}
+
+function calculateSurfaceFactor(totalMassKg, logs, splits, kindling) {
+
+    const N = logs + splits + kindling;
+
+    if (N <= 0) return null;
+
+    // Surface ∝ M^(2/3) * N^(1/3)
+    const surface = Math.pow(totalMassKg, 2/3) * Math.pow(N, 1/3);
+
+    // Normalize to reference case (1 piece)
+    const reference =
+        Math.pow(totalMassKg, 2/3) * Math.pow(1, 1/3);
+
+    return surface / reference;
+}
+
+function calculateBarkExposure(logs, splits, kindling) {
+
+    const N = logs + splits + kindling;
+    if (N <= 0) return 1;
+
+    const exposure =
+        logs * 0.3 +
+        splits * 0.7 +
+        kindling * 1.0;
+
+    return exposure / N;
 }

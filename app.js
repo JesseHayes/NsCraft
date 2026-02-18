@@ -955,7 +955,7 @@ function startFireFromPlanner() {
         document.getElementById("fireAirflowSelect").value;
 
     const moisture =
-        parseFloat(document.getElementById("fireMoistureInput").value);
+        parseFloat(document.getElementById("fireMoistureCondition").value);
 
     const mode =
         document.querySelector("input[name='fireMode']:checked").value;
@@ -1105,9 +1105,14 @@ function renderFirePlanner(container) {
             <option value="high">High (Windy)</option>
         </select>
 
-        <label>Moisture Content (%):</label>
-        <input type="number" id="fireMoistureInput"
-          value="15" min="0" max="60" step="1">
+        <label>Wood Condition:</label>
+        <select id="fireMoistureCondition">
+            <option value="seasoned">Seasoned (Dry)</option>
+            <option value="standing_dead">Standing Dead</option>
+            <option value="fallen">Recently Fallen</option>
+            <option value="green">Green</option>
+            <option value="frozen">Frozen</option>
+        </select>
 
         <hr>
 
@@ -1218,7 +1223,8 @@ function setupFireReactiveUpdates() {
     "fireMoistureInput",
     "pieceLogs",
     "pieceSplits",
-    "pieceKindling"
+    "pieceKindling",
+    "fireMoistureCondition"
 ];
 
     inputs.forEach(id => {
@@ -1250,7 +1256,7 @@ function updateFirePreview() {
         document.getElementById("fireAirflowSelect").value;
 
     const moisture =
-        parseFloat(document.getElementById("fireMoistureInput").value);
+        parseFloat(document.getElementById("fireMoistureCondition").value);
 
     const logs = parseInt(document.getElementById("pieceLogs").value) || 0;
     const splits = parseInt(document.getElementById("pieceSplits").value) || 0;
@@ -1371,10 +1377,21 @@ function calculateCombustion(material, weightKg, airflowLevel, moisturePercent, 
     const airflowFactor =
         airflowMultipliers[airflowLevel] || 1.0;
 
-    const moistureFraction = moisturePercent / 100;
+    const condition =
+    document.getElementById("fireMoistureCondition").value;
+
+    const moistureFraction =
+        getMoistureFraction(condition);
+
+        let frozenPenalty = 1;
+
+    if (condition === "frozen") {
+        frozenPenalty = 0.85; // reduces early efficiency
+    }
 
     const combustionEfficiency =
-        Math.max(0.3, 1 - (moistureFraction * 1.2));
+    Math.max(0.3, 1 - (moistureFraction * 1.2)) *
+    frozenPenalty;
 
     const N = logs + splits + kindling;
     if (N <= 0) return null;
@@ -1515,4 +1532,28 @@ function calculateBarkExposure(logs, splits, kindling) {
         kindling * 1.0;
 
     return exposure / N;
+}
+
+function getMoistureFraction(condition) {
+
+    switch (condition) {
+
+        case "seasoned":
+            return 0.12; // 12%
+
+        case "standing_dead":
+            return 0.18; // 18%
+
+        case "fallen":
+            return 0.30; // 30%
+
+        case "green":
+            return 0.45; // 45%
+
+        case "frozen":
+            return 0.30; // behaves like 30% but frozen
+
+        default:
+            return 0.20;
+    }
 }

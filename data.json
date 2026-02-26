@@ -505,16 +505,7 @@
   },
   "description": "A durable rot-resistant softwood historically used in canoes and shingles."
 },
-{
-      "id": "charcoal",
-      "name": "Charcoal",
-      "type": "Fuel",
-      "season": ["all"],
-      "regions": ["any"],
-      "tags": ["fuel"],
-      "image": "images/charcoal.jpg",
-      "description": "Nearly pure carbon, it is made by heating wood in the absence of air, evaporating water and volatiles."
-    },
+
     {
       "id": "spruce_resin",
       "name": "Spruce Resin",
@@ -534,7 +525,228 @@
       "tags": ["adhesive"],
       "image": "images/spruce_glue.jpg",
       "description": "I have no idea, I guess an adhesive made of charcoal and spruce resin"
-    }
+    },
+    {
+  "id": "fireclay",
+  "name": "Fireclay (refractory clay)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["provincial:common"], 
+  "thermal_conductivity": 0.40,
+  "max_service_temp": 1400,
+  "insulation_rating": 0.75,
+  "tags": ["insulation","kiln","refractory","clay"],
+  "image": "images/insulation/fireclay.jpg",
+  "description": "High-alumina clays (fireclays) used for lining furnaces and kilns. When formed and fired they resist high temperatures (1000–1600°C depending on composition). Good combination of heat resistance and moderate insulating value; performance depends on porosity and firing temperature. Often worked into bricks or packed as a bed/clay lining."
+},
+{
+  "id": "earthen_clay",
+  "name": "Earthen clay (natural clay/loam)",
+  "type": "Insulation",
+  "regions": ["any"],
+  "season": ["all"],
+  "thermal_conductivity": 0.60,
+  "max_service_temp": 1000,
+  "insulation_rating": 0.45,
+  "tags": ["insulation","kiln","mud","clay"],
+  "image": "images/insulation/earthen_clay.jpg",
+  "description": "Unrefined natural clay/loam found in many deposits across Nova Scotia. Usable as raw lining material for simple earth ovens, cob kilns, and clay domes. Lower insulating performance than purpose-made refractory (depends strongly on moisture content and whether it has been fired). Best used combined with insulating fillers (sawdust, ash) and in thick layers."
+},
+{
+  "id": "kaolinite",
+  "name": "Kaolinite-rich clay",
+  "type": "Insulation",
+  "regions": ["localized"], 
+  "season": ["all"],
+  "thermal_conductivity": 0.30,
+  "max_service_temp": 1200,
+  "insulation_rating": 0.65,
+  "tags": ["insulation","pottery","clay","kaolin"],
+  "image": "images/insulation/kaolinite.jpg",
+  "description": "Kaolinite is the principal mineral in high-quality pottery clays. When formed into refractory shapes it has relatively low thermal conductivity and good high-temperature stability (used for ceramics and some refractory components). Availability is more localized; test small samples before relying on them for high-temp work."
+},
+{
+  "id": "sand",
+  "name": "Dry sand",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["coastal","river","glacial_deposits"],
+  "thermal_conductivity": 0.20,
+  "max_service_temp": 1000,
+  "insulation_rating": 0.50,
+  "tags": ["insulation","backfill","sand"],
+  "image": "images/insulation/sand.jpg",
+  "description": "Clean, dry coarse sand is a useful insulating backfill (fills gaps and reduces convective loss). Thermal conductivity is low when dry (typical 0.15–0.25 W/m·K) but rises quickly if wet. Sand is often used as packing around crucibles, for making temporary molds, or as part of earthen kilns."
+},
+{
+  "id": "coarse_gravel",
+  "name": "Coarse gravel",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["glacial_deposits"],
+  "thermal_conductivity": 1.50,
+  "max_service_temp": 800,
+  "insulation_rating": 0.15,
+  "tags": ["structure","aggregate"],
+  "image": "images/insulation/gravel.jpg",
+  "description": "Coarse gravel and crushed stone provide structural mass and some protection, but are relatively conductive compared with porous insulators. Useful as heavy thermal mass or base but not as the primary insulating layer. Beware of spalling or cracking at rapid heat cycles."
+},
+{
+  "id": "sandstone",
+  "name": "Sandstone",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["sedimentary_beds"],
+  "thermal_conductivity": 1.70,
+  "max_service_temp": 800,
+  "insulation_rating": 0.20,
+  "tags": ["structure","stone","sandstone"],
+  "image": "images/insulation/sandstone.jpg",
+  "description": "Common sedimentary rock in parts of Nova Scotia; useful as structural facing stones. Sandstone has moderate thermal conductivity and reasonable heat stability for low-to-medium temp tasks (hearths, ovens). Avoid using as primary insulating layer for high-temperature furnaces."
+},
+{
+  "id": "granite",
+  "name": "Granite",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["batholiths","upland"],
+  "thermal_conductivity": 3.00,
+  "max_service_temp": 600,
+  "insulation_rating": 0.10,
+  "tags": ["structure","stone","granite"],
+  "image": "images/insulation/granite.jpg",
+  "description": "Widespread intrusive rock (e.g., South Mountain areas). Granite is strong and durable but relatively thermally conductive and can spall under rapid heat cycles. Good for structural elements and mass, but not a good insulator by itself."
+},
+{
+  "id": "basalt",
+  "name": "Basalt",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["north_mountain","volcanic_outcrops"],
+  "thermal_conductivity": 2.50,
+  "max_service_temp": 800,
+  "insulation_rating": 0.12,
+  "tags": ["structure","stone","basalt"],
+  "image": "images/insulation/basalt.jpg",
+  "description": "Dense volcanic rock (North Mountain Basalt). Like granite, basalt provides good structural mass but conducts heat relatively quickly and can crack if heated/cooled rapidly. Useful for outer shell or anchor stones in a furnace design."
+},
+{
+  "id": "shale",
+  "name": "Shale / slate",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["sedimentary_beds"],
+  "thermal_conductivity": 1.50,
+  "max_service_temp": 700,
+  "insulation_rating": 0.18,
+  "tags": ["structure","stone","shale","slate"],
+  "image": "images/insulation/shale.jpg",
+  "description": "Fine-grained sedimentary rocks (shale) and low-grade metamorphic slate occur in many parts of the province. They can be split into thin slabs for hearth linings or kiln flues but are more conductive than porous insulators and may crack under thermal shock."
+},
+{
+  "id": "peat",
+  "name": "Peat (sod / turf)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["bog","wetland"],
+  "thermal_conductivity": 0.26,
+  "max_service_temp": 300,
+  "insulation_rating": 0.65,
+  "tags": ["insulation","organic","peat","bog"],
+  "image": "images/insulation/peat.jpg",
+  "description": "Peat and turf (sod) are abundant in coastal bogs and lowlands. Dry peat has reasonably low thermal conductivity and was historically used as insulating turf roofs and for lining earth ovens. Moisture content strongly affects performance; frozen peat becomes more conductive (and dangerous near hot fires). Max service temperature is low — peat will char and combust if exposed directly to flame."
+},
+{
+  "id": "sphagnum_moss",
+  "name": "Sphagnum moss (dried)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["bog","wetland"],
+  "thermal_conductivity": 0.05,
+  "max_service_temp": 200,
+  "insulation_rating": 0.80,
+  "tags": ["insulation","organic","moss","tinder"],
+  "image": "images/insulation/sphagnum_moss.jpg",
+  "description": "Dried sphagnum moss is a highly air-trapping material with excellent insulation per weight and was used historically for padding and insulating. It is flammable if dry and will not survive direct, high-temperature exposure — best used as gap filler, dryer, or in protective layers away from the core flame."
+},
+{
+  "id": "sawdust",
+  "name": "Sawdust (dry)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["any_with_forest"],
+  "thermal_conductivity": 0.06,
+  "max_service_temp": 300,
+  "insulation_rating": 0.85,
+  "tags": ["insulation","organic","sawdust"],
+  "image": "images/insulation/sawdust.jpg",
+  "description": "Fine sawdust (dry) traps air and makes an effective insulating packing or brick additive (historically mixed with clay to form insulating bricks). Very low conductivity when dry; flammable if exposed to sustained open flame — use behind a refractory facing or in separated insulating cavities."
+},
+{
+  "id": "wood_ash",
+  "name": "Wood ash (compacted)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["any_with_wood_use"],
+  "thermal_conductivity": 0.14,
+  "max_service_temp": 900,
+  "insulation_rating": 0.55,
+  "tags": ["insulation","ash","refractory_additive"],
+  "image": "images/insulation/wood_ash.jpg",
+  "description": "Wood ash (powdered or compacted) can be used as an insulating filler and is a traditional additive in some primitive refractory mixtures. Ash has moderate insulating properties and can help form a porous insulating layer when mixed with clay. Chemistry varies with species and firing history; test before use at high temperatures."
+},
+{
+  "id": "charcoal",
+  "name": "Charcoal",
+  "type": "Fuel",
+  "season": ["all"],
+  "regions": ["any_with_wood"],
+  "thermal_conductivity": 0.10,
+  "max_service_temp": 1500,
+  "insulation_rating": 0.60,
+  "tags": ["fuel","insulation","charcoal","high_temp"],
+  "image": "images/charcoal.jpg",
+  "description": "Charcoal is primarily a fuel (high carbon, porous). It has relatively low thermal conductivity in loose, packed form and can be used as a high-temperature packing material or filler that provides insulation while also serving as fuel. When used as packing, it can support very high service temperatures in a charcoal furnace; it is combustible and should not be used as a protective facing."
+},
+{
+  "id": "pumice_tuff",
+  "name": "Pumice",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["rare"],
+  "thermal_conductivity": 0.50,
+  "max_service_temp": 1000,
+  "insulation_rating": 0.70,
+  "tags": ["insulation","volcanic","tuff"],
+  "image": "images/insulation/pumice.jpg",
+  "description": "Highly porous volcanic rock (pumice/tuff) is an excellent natural insulator where available. In Nova Scotia occurrences are rare; pumice is more common in volcanic provinces. If you encounter vesicular basalt/tuff, it can be used as a high-temperature insulating aggregate."
+},
+{
+  "id": "clay_sawdust_mix",
+  "name": "Clay + sawdust (insulating cob)",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["any"],
+  "thermal_conductivity": 0.45,
+  "max_service_temp": 1000,
+  "insulation_rating": 0.70,
+  "tags": ["insulation","composite","cob"],
+  "image": "images/insulation/clay_sawdust_mix.jpg",
+  "description": "Traditional mixture of clay and sawdust (or straw) used to build insulating bricks or cob linings. Burning out the organic content in the first firing leaves a porous, insulating ceramic. Widely useful for primitive kilns and ovens — good balance of insulating value and availability."
+},
+{
+  "id": "seagrass_kelp",
+  "name": "Dried kelp / seaweed",
+  "type": "Insulation",
+  "season": ["all"],
+  "regions": ["coastal"],
+  "thermal_conductivity": 0.10,
+  "max_service_temp": 250,
+  "insulation_rating": 0.50,
+  "tags": ["insulation","organic","coastal"],
+  "image": "images/insulation/kelp.jpg",
+  "description": "Dried coastal seaweeds (kelp) were historically used as packing and insulating material in coastal communities. They trap air and insulate well when dry but have low thermal stability and are salt-rich — rinse and dry before use and place away from direct flames."
+}
   ],
   "recipes": [
     {
@@ -568,3 +780,4 @@
 }
   ]
 }
+

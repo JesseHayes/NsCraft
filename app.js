@@ -10,6 +10,62 @@ let mineralData;
 let currentCategory = null;
 let imageHTML = "";
 let activeFire = null;
+let nearbyMaterials = [];
+
+const furnaceDesigns = {
+    cooking: {
+        name: "Stone or Clay Hearth",
+        minTemp: 200,
+        recommendedFuel: "wood"
+    },
+    pottery: {
+        name: "Pit Kiln or Updraft Kiln",
+        minTemp: 800,
+        recommendedFuel: "wood or charcoal"
+    },
+    forging: {
+        name: "Charcoal Ground Forge",
+        minTemp: 1000,
+        recommendedFuel: "charcoal"
+    },
+    glass: {
+        name: "Enclosed Dome Kiln",
+        minTemp: 1100,
+        recommendedFuel: "charcoal"
+    },
+    melting: {
+        name: "Crucible Furnace",
+        minTemp: 1000,
+        recommendedFuel: "charcoal"
+    }
+};
+
+const furnaceArchetypes = {
+    open_fire: {
+        baseRetention: 0.3,
+        requiredMaterials: []
+    },
+    stone_ring: {
+        baseRetention: 0.5,
+        requiredTags: ["structure"]
+    },
+    clay_dome: {
+        baseRetention: 0.75,
+        requiredTags: ["insulation"]
+    },
+    insulated_kiln: {
+        baseRetention: 0.9,
+        requiredTags: ["insulation", "structure"]
+    }
+};
+
+const furnaceTasks = {
+    cooking: { targetTemp: 300 },
+    pottery: { targetTemp: 1000 },
+    forging: { targetTemp: 1150 },
+    glass: { targetTemp: 1300 },
+    melting: { targetTemp: 1100 }
+};
 
 const redStarIcon = L.icon({
     iconUrl: 'images/map-icons/red-star.png',
@@ -784,6 +840,17 @@ if (isWood) {
             <input type="number" id="length_${resource.id}" value="4" min="1" style="width:60px;">
         </div>
 
+        <div>
+            Condition:
+            <select id="condition_${resource.id}" class="wood-condition">
+                <option value="seasoned">Seasoned</option>
+                <option value="standing_dead">Standing Dead</option>
+                <option value="fallen">Recently Fallen</option>
+                <option value="green">Green</option>
+                <option value="frozen">Frozen</option>
+            </select>
+        </div>
+
         <button class="primary"
             onclick="event.stopPropagation(); addWoodToInventory('${resource.id}')">
             Add To Inventory
@@ -817,16 +884,19 @@ else {
         });
 }
 
-function estimateLogWeightImperial(diameterIn, lengthFt, densityKgPerM3) {
+function estimateLogWeightImperial(diameterIn, lengthFt, densityKgPerM3, condition) {
 
-    const diameterM = diameterIn * 0.0254;
-    const lengthM = lengthFt * 0.3048;
+    const diameterMeters = diameterIn * 0.0254;
+    const lengthMeters = lengthFt * 0.3048;
 
-    const radius = diameterM / 2;
+    const radius = diameterMeters / 2;
+    const volume = Math.PI * radius * radius * lengthMeters;
 
-    const volume = Math.PI * radius * radius * lengthM;
+    const dryWeight = volume * densityKgPerM3;
 
-    return volume * densityKgPerM3;
+    const multiplier = getWoodMoistureMultiplier(condition);
+
+    return dryWeight * multiplier;
 }
 
 function adjustDiameter(id, delta) {
@@ -874,6 +944,7 @@ function addWoodToInventory(id) {
 
     const diameter = parseFloat(document.getElementById(`diam_${id}`).value);
     const length = parseFloat(document.getElementById(`length_${id}`).value);
+    const condition = document.getElementById(`condition_${id}`).value;
 
     if (!diameter || !length) {
         alert("Enter valid dimensions.");
@@ -883,7 +954,8 @@ function addWoodToInventory(id) {
     const weight = estimateLogWeightImperial(
         diameter,
         length,
-        resource.density
+        resource.density,
+        condition
     );
 
     const currentWeight = inventory[id]?.weight_kg || 0;
@@ -1140,6 +1212,20 @@ function renderFirePlanner(container) {
 
     setupFireModeToggle();
     setupFireReactiveUpdates();
+        // Attach furnace planner listeners
+    const taskSelect = document.getElementById("furnaceTaskSelect");
+    const modeRadios = document.querySelectorAll("input[name='furnaceMode']");
+
+    if (taskSelect) {
+        taskSelect.addEventListener("change", updateFurnacePlanner);
+    }
+
+    modeRadios.forEach(radio =>
+        radio.addEventListener("change", updateFurnacePlanner)
+    );
+
+    // Run once initially
+    updateFurnacePlanner();
 }
 
 function setupFireModeToggle() {
@@ -1211,6 +1297,7 @@ function renderActiveFirePanel() {
         Max Temp: ${activeFire.max_temperature} °C<br>
         Smoke Level: ${(activeFire.smoke_level * 100).toFixed(0)}%
     `;
+   // updateFurnacePlanner();
 }
 
 function setupFireReactiveUpdates() {
@@ -1220,7 +1307,6 @@ function setupFireReactiveUpdates() {
     "fireDurationInput",
     "fireWeightInput",
     "fireAirflowSelect",
-    "fireMoistureInput",
     "pieceLogs",
     "pieceSplits",
     "pieceKindling",
@@ -1555,5 +1641,255 @@ function getMoistureFraction(condition) {
 
         default:
             return 0.20;
+    }
+}
+
+function calculateFurnaceTemperature(fireTemp, insulationMaterials) {
+
+    let insulationScore = 0;
+
+    insulationMaterials.forEach(mat => {
+        insulationScore += mat.insulation_rating || 0;
+    });
+
+    const normalizedInsulation =
+        Math.min(insulationScore / 3, 1);
+
+    return fireTemp * (0.5 + 0.5 * normalizedInsulation);
+}
+
+function getUserLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        userLocation = { lat, lon };
+
+        updateNearbyMaterials();
+    });
+}
+
+function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // km
+    const dLat = (lat2 - lat1) * Math.PI/180;
+    const dLon = (lon2 - lon1) * Math.PI/180;
+
+    const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1*Math.PI/180) *
+        Math.cos(lat2*Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+function getInventoryMaterials() {
+
+    if (!inventory) return [];
+
+    return Object.keys(inventory)
+        .map(id => data.resources.find(r => r.id === id))
+        .filter(Boolean);
+}
+
+function getAvailableMaterials(mode) {
+
+    if (mode === "inventory") {
+        return getInventoryMaterials();
+    }
+
+    if (mode === "nearby") {
+        return nearbyMaterials || [];
+    }
+
+    return [];
+}
+
+function suggestFurnaceDesign(mode) {
+
+    const taskKey =
+        document.getElementById("furnaceTaskSelect").value;
+
+    const task = furnaceDesigns[taskKey];
+
+    if (!task) return "No design defined.";
+
+    const available =
+        getAvailableMaterials(mode);
+
+    const structural =
+        getStructuralMaterials(available);
+
+    const refractory =
+        getRefractoryMaterials(available);
+
+    const insulation =
+        getInsulatingMaterials(available);
+
+    let designReport = `
+Task: ${task.name}
+
+Minimum Required Temperature:
+${task.minTemp}°C
+`;
+
+    // --- Fuel Check ---
+    const hasCharcoal =
+        available.some(m => m.id === "charcoal");
+
+    if (task.recommendedFuel === "charcoal" && !hasCharcoal) {
+        designReport += `
+⚠ Charcoal recommended for this task.
+Consider producing charcoal first.
+`;
+    }
+
+    // --- Structural Layer ---
+    if (structural.length > 0) {
+        designReport += `
+Structural Shell:
+Use ${structural[0].name}.
+`;
+    } else {
+        designReport += `
+⚠ No structural stone/clay available.
+`;
+    }
+
+    // --- Hot Face ---
+    if (refractory.length > 0) {
+        designReport += `
+Hot Face Lining:
+Use ${refractory[0].name}.
+`;
+    } else {
+        designReport += `
+⚠ No high-temp refractory clay available.
+`;
+    }
+
+    // --- Insulation ---
+    if (insulation.length > 0) {
+        designReport += `
+Insulating Layer:
+Use ${insulation[0].name}.
+`;
+    } else {
+        designReport += `
+⚠ No high-quality insulation available.
+`;
+    }
+
+    // --- Design Type ---
+    designReport += `
+Recommended Structure:
+`;
+
+    switch(taskKey) {
+
+        case "cooking":
+            designReport += `
+Build a stone ring or clay-lined hearth.
+`;
+            break;
+
+        case "pottery":
+            designReport += `
+Construct a pit kiln:
+- Dig shallow pit
+- Line with clay
+- Stack pottery with fuel layers
+- Cover with earth
+`;
+            break;
+
+        case "forging":
+            designReport += `
+Construct ground forge:
+- Clay basin 30–40 cm diameter
+- Insert tuyere pipe
+- Use charcoal fuel
+`;
+            break;
+
+        case "glass":
+            designReport += `
+Construct enclosed dome kiln:
+- Thick clay walls
+- Small stoke opening
+- Chimney vent
+`;
+            break;
+
+        case "melting":
+            designReport += `
+Construct crucible furnace:
+- Cylindrical clay chamber
+- Central crucible cavity
+- Charcoal packed around crucible
+`;
+            break;
+    }
+
+    return designReport;
+}
+
+function updateFurnacePlanner() {
+
+    const mode =
+        document.querySelector("input[name='furnaceMode']:checked").value;
+
+    const output =
+        suggestFurnaceDesign(mode);
+
+    const outputDiv =
+        document.getElementById("furnaceOutput");
+
+    if (outputDiv) {
+        outputDiv.innerText = output;
+    }
+}
+
+function getStructuralMaterials(materials) {
+    return materials.filter(m =>
+        m.tags?.includes("structure")
+    );
+}
+
+function getRefractoryMaterials(materials) {
+    return materials.filter(m =>
+        m.tags?.includes("refractory") ||
+        m.max_service_temp >= 1100
+    );
+}
+
+function getInsulatingMaterials(materials) {
+    return materials.filter(m =>
+        m.insulation_rating >= 0.5
+    );
+}
+
+function getWoodMoistureMultiplier(condition) {
+
+    switch (condition) {
+
+        case "seasoned":
+            return 1.0;        // baseline air-dry
+
+        case "standing_dead":
+            return 1.05;       // slightly wetter
+
+        case "fallen":
+            return 1.20;
+
+        case "green":
+            return 1.35;
+
+        case "frozen":
+            return 1.30;
+
+        default:
+            return 1.0;
     }
 }

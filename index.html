@@ -165,6 +165,29 @@ button.secondary {
 
 <div id="fireView" class="view">
     <div id="fireContainer"></div>
+    <hr>
+<h3>Furnace Planner</h3>
+
+<label>Task:</label>
+<select id="furnaceTaskSelect">
+    <option value="cooking">Cooking</option>
+    <option value="pottery">Pottery</option>
+    <option value="forging">Forging</option>
+    <option value="glass">Glass Working</option>
+    <option value="melting">Metal Melting</option>
+</select>
+
+<label>
+<input type="radio" name="furnaceMode" value="inventory" checked>
+Use Inventory Materials
+</label>
+
+<label>
+<input type="radio" name="furnaceMode" value="nearby">
+Use Nearby Materials
+</label>
+
+<div id="furnaceOutput"></div>
 </div>
 
 <div id="mapView" class="view">

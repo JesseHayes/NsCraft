@@ -423,6 +423,15 @@ function openDetail(resourceId) {
             ${resource.description}
         </div>
 
+        ${
+        resource.identification ? `
+        <div class="card">
+        <strong>Identification</strong><br>
+        ${resource.identification}
+        </div>
+        ` : ""
+        }
+
         <div class="card">
             <strong>Uses</strong><br>
             ${usesHTML}
@@ -812,6 +821,40 @@ function renderCategoryResources() {
 
     container.innerHTML = "";
 
+ // If Food category, show only subcategory buttons first
+if (currentCategory === "Food") {
+
+    const subcategories = [
+        ...new Set(
+            data.resources
+                .filter(r => r.type === "Food")
+                .map(r => r.subcategory)
+                .filter(Boolean)
+        )
+    ];
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.marginBottom = "10px";
+
+    subcategories.forEach(sub => {
+
+        const button = document.createElement("button");
+        button.className = "primary";
+        button.style.marginRight = "8px";
+        button.style.marginBottom = "8px";
+
+        button.textContent = sub;
+
+        button.onclick = () => renderFoodSubcategory(sub);
+
+        buttonContainer.appendChild(button);
+    });
+
+    container.appendChild(buttonContainer);
+
+    return; // stop normal resource rendering
+}
+
     data.resources
         .filter(r => currentCategory === "all" || r.type === currentCategory)
         .filter(r => r.name.toLowerCase().includes(search))
@@ -882,6 +925,46 @@ else {
 
             container.appendChild(div);
         });
+}
+
+function renderFoodSubcategory(subcategory) {
+
+    const container = document.getElementById("categoryResourceList");
+
+    container.innerHTML = "";
+
+    const foods = data.resources.filter(r =>
+        r.type === "Food" && r.subcategory === subcategory
+    );
+
+    foods.forEach(resource => {
+
+        const qty = inventory[resource.id] || 0;
+
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <div onclick="openDetail('${resource.id}')">
+                <strong>${resource.name}</strong><br>
+                Quantity: ${qty}
+            </div>
+
+            <div class="resource-controls">
+                <button class="secondary"
+                    onclick="event.stopPropagation(); modifyInventory('${resource.id}', -1)">
+                    -
+                </button>
+
+                <button class="primary"
+                    onclick="event.stopPropagation(); modifyInventory('${resource.id}', 1)">
+                    +
+                </button>
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
 }
 
 function estimateLogWeightImperial(diameterIn, lengthFt, densityKgPerM3, condition) {

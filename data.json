@@ -1,6 +1,1026 @@
 {
   "resources": [
 {
+"id":"agrimony",
+"name":"Agrimony",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","forest_edge"],
+"tags":["plant","medicinal"],
+"image":"images/plants/agrimony.jpg",
+"description":"A perennial herb traditionally used in herbal medicine.",
+"identification":"Tall slender herb with a single upright stem and alternating serrated leaves. Produces a long spike of small yellow flowers. The seed pods are burr-like and cling easily to clothing or animal fur."
+},
+
+{
+"id":"alder_leaved_buckthorn",
+"name":"Alder-leaved Buckthorn",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland","forest_edge"],
+"tags":["shrub"],
+"image":"images/plants/alder_leaved_buckthorn.jpg",
+"description":"A small shrub commonly found in wetlands and damp forest edges.",
+"identification":"Low shrub with oval leaves resembling alder leaves. Leaves are smooth with curved side veins. Produces small dark berries along slender branches. Typically found in bogs and wet soils."
+},
+
+{
+"id":"allegheny_hawkweed",
+"name":"Allegheny Hawkweed",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","flower"],
+"image":"images/plants/allegheny_hawkweed.jpg",
+"description":"A woodland hawkweed producing yellow composite flowers.",
+"identification":"Slender plant with narrow hairy leaves mostly near the base of the stem. Produces small bright yellow dandelion-like flowers on thin stems. Often found in shaded forests."
+},
+
+{
+"id":"alternate_leaved_dogwood",
+"name":"Alternate-leaved Dogwood",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest_edge"],
+"tags":["shrub","berry"],
+"image":"images/plants/alternate_leaved_dogwood.jpg",
+"description":"A native shrub or small tree producing blue berries for wildlife.",
+"identification":"Distinctive layered branching pattern giving the plant a tiered appearance. Leaves are oval and arranged alternately rather than opposite like most dogwoods. Produces flat clusters of small white flowers followed by dark blue berries."
+},
+
+{
+"id":"anise_root",
+"name":"Anise-root",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","edible"],
+"calories":42,
+"image":"images/plants/anise_root.jpg",
+"description":"A woodland herb whose roots have a mild licorice flavor.",
+"identification":"Delicate woodland plant with finely divided fern-like leaves and slender stems. Produces small white umbrella-shaped flower clusters typical of the carrot family. Roots emit a strong anise scent when crushed."
+},
+
+{
+"id":"arrowleaved_violet",
+"name":"Arrowleaved Violet",
+"type":"Plant",
+"season":["spring"],
+"regions":["meadow","forest_edge"],
+"tags":["plant","flower"],
+"image":"images/plants/arrowleaved_violet.jpg",
+"description":"A small violet common in sandy soils and open woodland.",
+"identification":"Low plant with narrow arrow-shaped leaves emerging from the base. Produces purple five-petaled violet flowers on slender stems. Leaves are distinctly shaped like arrowheads."
+},
+
+{
+"id":"baltic_rush",
+"name":"Baltic Rush",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland"],
+"tags":["plant","grasslike"],
+"image":"images/plants/baltic_rush.jpg",
+"description":"A grass-like plant commonly found in wetlands.",
+"identification":"Clump forming plant with round stiff stems rather than flat leaves. Flowers appear in small clusters near the top of the stem. Typically grows in wet meadows or marshes."
+},
+
+{
+"id":"bayberry",
+"name":"Bayberry",
+"type":"Plant",
+"season":["fall"],
+"regions":["coastal"],
+"tags":["plant","wax","medicinal"],
+"image":"images/plants/bayberry.jpg",
+"description":"A coastal shrub whose berries contain a wax historically used to make candles.",
+"identification":"Low aromatic shrub with narrow leathery leaves that release a spicy scent when crushed. Small gray berries grow along the stems and are coated in a pale waxy layer."
+},
+
+{
+"id":"beach_grass",
+"name":"Beach Grass",
+"type":"Plant",
+"season":["summer"],
+"regions":["coastal"],
+"tags":["plant","grass"],
+"image":"images/plants/beach_grass.jpg",
+"description":"A dune-stabilizing grass common along Atlantic beaches.",
+"identification":"Tall stiff grass forming dense clumps in sandy coastal dunes. Leaves are long and narrow and often roll inward in dry conditions. Seed heads form upright narrow spikes."
+},
+
+{
+"id":"beaked_hazelnut",
+"name":"Beaked Hazelnut",
+"type":"Food",
+"subcategory":"Nut",
+"season":["fall"],
+"regions":["forest_edge","disturbed"],
+"tags":["food","nut"],
+"calories":628,
+"image":"images/food/beaked_hazelnut.jpg",
+"description":"Native shrub producing small edible hazelnuts enclosed in long bristly husks.",
+"identification":"Shrub 1–3 m tall with broad heart-shaped leaves with doubly serrated edges and a rough surface. Nuts are enclosed in long tubular husks covered in soft bristles giving them a distinctive beaked appearance."
+},
+
+{
+"id":"bedstraw",
+"name":"Bedstraw",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest","meadow"],
+"tags":["plant"],
+"image":"images/plants/bedstraw.jpg",
+"description":"A group of small plants with whorled leaves and tiny flowers.",
+"identification":"Slender stems with leaves arranged in circular whorls around the stem. Produces clusters of tiny white or yellow flowers. Some species have rough stems that cling to clothing."
+},
+
+{
+"id":"beech_drops",
+"name":"Beech-drops",
+"type":"Plant",
+"season":["fall"],
+"regions":["hardwood_forest"],
+"tags":["plant","parasitic"],
+"image":"images/plants/beech_drops.jpg",
+"description":"A parasitic plant that grows near American beech trees.",
+"identification":"Leafless reddish-brown plant with many small tubular flowers along thin stems. Usually found growing in clusters around the base of beech trees."
+},
+
+{
+"id":"bellwort",
+"name":"Bellwort",
+"type":"Plant",
+"season":["spring"],
+"regions":["forest"],
+"tags":["plant","flower"],
+"image":"images/plants/bellwort.jpg",
+"description":"A woodland plant producing drooping yellow flowers.",
+"identification":"Slender plant with smooth oval leaves and soft stems. Flowers hang downward like small yellow bells with twisted petals. Often found in rich deciduous forests."
+},
+
+{
+"id":"blue_cohosh",
+"name":"Blue Cohosh",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","medicinal"],
+"image":"images/plants/blue_cohosh.jpg",
+"description":"A woodland herb historically used in traditional medicine.",
+"identification":"Forest herb with bluish-green compound leaves divided into many leaflets. Produces small yellowish flowers followed by deep blue berries held on red stalks."
+},
+
+{
+"id":"bent_grass",
+"name":"Bent-grass",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","wetland","disturbed"],
+"tags":["plant","grass"],
+"image":"images/plants/bent_grass.jpg",
+"description":"A group of fine-leaved grasses common in meadows and moist soils.",
+"identification":"Slender grass with narrow flat leaves and delicate open branching seed heads that appear airy or mist-like. Often forms soft carpets in moist meadows and along wetlands."
+},
+
+{
+"id":"bittersweet",
+"name":"Bittersweet",
+"type":"Plant",
+"season":["fall"],
+"regions":["forest_edge","disturbed"],
+"tags":["vine","toxic"],
+"image":"images/plants/bittersweet.jpg",
+"description":"A climbing vine producing bright orange fruits that split to reveal red seeds.",
+"identification":"Woody climbing vine that wraps around shrubs and small trees. Leaves are oval with pointed tips and smooth edges. Fruits are orange capsules that split open in autumn revealing bright red seeds."
+},
+
+{
+"id":"black_chokeberry",
+"name":"Black Chokeberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["fall"],
+"regions":["wetland","forest_edge"],
+"tags":["food","berry"],
+"calories":47,
+"image":"images/food/black_chokeberry.jpg",
+"description":"A shrub producing dark berries high in antioxidants, often used in jams or juices.",
+"identification":"Shrub with glossy oval leaves and clusters of small white flowers in spring. Fruits ripen to dark purple-black berries in late summer. Leaves often turn deep red in autumn."
+},
+
+{
+"id":"black_snakeroot",
+"name":"Black Snakeroot",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","medicinal"],
+"image":"images/plants/black_snakeroot.jpg",
+"description":"A woodland herb historically used in herbal medicine.",
+"identification":"Forest plant with tall stems and compound leaves divided into many sharply toothed leaflets. Produces tall plume-like clusters of small white flowers. Common in rich deciduous forests."
+},
+
+{
+"id":"bladder_sedge",
+"name":"Bladder Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland"],
+"tags":["plant","grasslike"],
+"image":"images/plants/bladder_sedge.jpg",
+"description":"A wetland sedge recognized by its inflated seed sacs.",
+"identification":"Grass-like plant with narrow leaves and triangular stems typical of sedges. Seed heads contain inflated bladder-like sacs that enclose the seeds. Common in marshes and wet meadows."
+},
+
+{
+"id":"bloodroot",
+"name":"Bloodroot",
+"type":"Plant",
+"season":["spring"],
+"regions":["hardwood_forest"],
+"tags":["plant","medicinal","toxic"],
+"image":"images/plants/bloodroot.jpg",
+"description":"A spring woodland plant known for its bright red sap.",
+"identification":"Low woodland plant with a single deeply lobed leaf and a white multi-petaled flower. When the root is cut it releases a distinctive bright red sap. Appears early in spring before the canopy closes."
+},
+
+{
+"id":"blue_flag",
+"name":"Blue Flag",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland"],
+"tags":["plant","flower"],
+"image":"images/plants/blue_flag.jpg",
+"description":"A native iris commonly found in wetlands and marsh edges.",
+"identification":"Tall plant with long sword-shaped leaves emerging from the base. Produces large blue-purple iris flowers with yellow and white markings. Typically grows along marshes and pond edges."
+},
+
+{
+"id":"blue_joint",
+"name":"Blue Joint",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland","meadow"],
+"tags":["plant","grass"],
+"image":"images/plants/blue_joint.jpg",
+"description":"A tall grass common in moist meadows and wetlands.",
+"identification":"Tall grass often over 1 m with narrow leaves and feathery purplish seed heads that turn pale as they mature. Forms dense stands in moist soils."
+},
+
+{
+"id":"blunt_leaved_bedstraw",
+"name":"Blunt-leaved Bedstraw",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant"],
+"image":"images/plants/blunt_leaved_bedstraw.jpg",
+"description":"A woodland bedstraw species with small white flowers.",
+"identification":"Low plant with slender stems and leaves arranged in circular whorls. Leaves have blunt rounded tips compared to other bedstraw species. Produces clusters of small white flowers."
+},
+
+{
+"id":"bog_goldenrod",
+"name":"Bog-goldenrod",
+"type":"Plant",
+"season":["late_summer"],
+"regions":["bog","wetland"],
+"tags":["plant","flower"],
+"image":"images/plants/bog_goldenrod.jpg",
+"description":"A goldenrod species adapted to bog environments.",
+"identification":"Slender plant with narrow leaves and upright clusters of small bright yellow flowers typical of goldenrods. Usually found growing in acidic peat bogs."
+},
+
+{
+"id":"bracken",
+"name":"Bracken",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["forest","disturbed"],
+"tags":["fern"],
+"image":"images/plants/bracken.jpg",
+"description":"A large fern that often forms extensive colonies in open forests.",
+"identification":"Large triangular fronds that divide into many smaller leaflets. Fronds emerge singly from underground rhizomes rather than in clumps. Often grows in sandy soils and disturbed areas."
+},
+
+{
+"id":"brauns_holly_fern",
+"name":"Braun's Holly Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["forest"],
+"tags":["fern"],
+"image":"images/plants/brauns_holly_fern.jpg",
+"description":"A rare forest fern with stiff holly-like leaflets.",
+"identification":"Evergreen fern with dark green fronds and stiff sharply toothed leaflets resembling holly leaves. Fronds grow in upright clumps and are often found in cool shaded forests."
+},
+
+{
+"id":"bluebead_lily",
+"name":"Bluebead Lily",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","toxic"],
+"image":"images/plants/bluebead_lily.jpg",
+"description":"A common forest plant producing bright blue berries that are not edible.",
+"identification":"Plant with two or three broad oval leaves emerging from the base. Produces a short stalk of small yellow-green flowers followed by bright metallic blue berries. Common in cool shaded forests."
+},
+
+{
+"id":"bristle_stalked_sedge",
+"name":"Bristle-stalked Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland","forest"],
+"tags":["plant","sedge"],
+"image":"images/plants/bristle_stalked_sedge.jpg",
+"description":"A sedge species common in moist woodland soils and wetland margins.",
+"identification":"Grass-like plant with narrow leaves and triangular stems typical of sedges. Flowering spikes sit on slender stalks covered in fine bristles, giving the plant a rough texture. Common in damp forest soils."
+},
+
+{
+"id":"bristly_black_currant",
+"name":"Bristly Black Currant",
+"type":"Food",
+"subcategory":"Berry",
+"season":["summer"],
+"regions":["forest","riparian"],
+"tags":["food","berry"],
+"calories":63,
+"image":"images/food/bristly_black_currant.jpg",
+"description":"A shrub producing dark currant berries that are edible and rich in vitamin C.",
+"identification":"Shrub about 1–2 m tall with palmately lobed leaves resembling small maple leaves. Stems are covered in fine bristles. Produces clusters of small black berries that grow in hanging strings."
+},
+
+{
+"id":"bristly_club_moss",
+"name":"Bristly Club-moss",
+"type":"Plant",
+"season":["all"],
+"regions":["forest"],
+"tags":["plant","clubmoss"],
+"image":"images/plants/bristly_club_moss.jpg",
+"description":"A primitive evergreen plant related to ancient forest plants.",
+"identification":"Low creeping plant with small needle-like leaves densely covering the stems. Produces upright stalks topped with small club-shaped spore cones. Often forms green carpets across the forest floor."
+},
+
+{
+"id":"brome_like_sedge",
+"name":"Brome-like Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland","meadow"],
+"tags":["plant","sedge"],
+"image":"images/plants/brome_like_sedge.jpg",
+"description":"A sedge species that resembles certain grasses in appearance.",
+"identification":"Tall sedge with triangular stems and long narrow leaves. Seed heads form loose clusters that resemble brome grasses. Found in wet meadows and marshy ground."
+},
+
+{
+"id":"broom_crowberry",
+"name":"Broom Crowberry",
+"type":"Plant",
+"season":["summer"],
+"regions":["coastal","barrens"],
+"tags":["plant","shrub"],
+"image":"images/plants/broom_crowberry.jpg",
+"description":"A low shrub related to crowberry, common in coastal barrens.",
+"identification":"Low mat-forming shrub with small needle-like leaves arranged densely along the stems. Produces small dark berries. Often grows in windy coastal barrens and acidic soils."
+},
+
+{
+"id":"brownish_sedge",
+"name":"Brownish Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland"],
+"tags":["plant","sedge"],
+"image":"images/plants/brownish_sedge.jpg",
+"description":"A wetland sedge species recognized by its brownish seed heads.",
+"identification":"Grass-like plant with triangular stems and narrow leaves. Seed heads form compact brown clusters at the top of the stem. Common in marshes and wet peat soils."
+},
+
+{
+"id":"bugleweed",
+"name":"Bugleweed",
+"type":"Plant",
+"season":["summer"],
+"regions":["wetland","forest_edge"],
+"tags":["plant","medicinal"],
+"image":"images/plants/bugleweed.jpg",
+"description":"A wetland herb historically used in herbal medicine.",
+"identification":"Low herb with square stems typical of the mint family. Leaves are narrow with coarse teeth. Small white flowers appear in clusters along the stem near the leaf nodes."
+},
+
+{
+"id":"bulbet_bladder_fern",
+"name":"Bulbet Bladder Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["forest"],
+"tags":["fern"],
+"image":"images/plants/bulbet_bladder_fern.jpg",
+"description":"A woodland fern capable of reproducing from small bulb-like structures on its fronds.",
+"identification":"Fern with arching fronds divided into many small leaflets. Small green bulb-like structures often appear on the fronds which can grow into new plants when they fall to the ground."
+},
+
+{
+"id":"bush_honeysuckle",
+"name":"Bush-honeysuckle",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest_edge","disturbed"],
+"tags":["shrub","berry"],
+"image":"images/plants/bush_honeysuckle.jpg",
+"description":"A shrub producing paired berries that provide food for wildlife.",
+"identification":"Shrub with opposite oval leaves and hollow stems. Produces pairs of tubular yellowish flowers followed by small red berries growing in pairs along the branches."
+},
+
+{
+"id":"calico_aster",
+"name":"Calico Aster",
+"type":"Plant",
+"season":["fall"],
+"regions":["forest_edge","meadow"],
+"tags":["plant","flower"],
+"image":"images/plants/calico_aster.jpg",
+"description":"A late-season flowering aster common in forest edges and open woods.",
+"identification":"Tall branching plant with many small white daisy-like flowers. Flower centers change from yellow to reddish-purple as they age, giving a speckled or \"calico\" appearance."
+},
+
+{
+"id":"canada_bluegrass",
+"name":"Canada Bluegrass",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","disturbed"],
+"tags":["plant","grass"],
+"image":"images/plants/canada_bluegrass.jpg",
+"description":"A cool-season grass common in fields and disturbed soils.",
+"identification":"Short to medium grass with soft bluish-green leaves and open pyramid-shaped seed heads. Often forms dense patches in meadows and lawns."
+},
+
+{
+"id":"canada_lily",
+"name":"Canada Lily",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","forest_edge"],
+"tags":["plant","flower"],
+"image":"images/plants/canada_lily.jpg",
+"description":"A native wild lily producing large orange spotted flowers.",
+"identification":"Tall herbaceous plant up to 1.5 m with narrow leaves arranged in whorls around the stem. Flowers are orange-yellow with dark spots and strongly recurved petals."
+},
+
+{
+"id":"canada_mountain_ricegrass",
+"name":"Canada Mountain-ricegrass",
+"type":"Plant",
+"season":["summer"],
+"regions":["upland","forest_edge"],
+"tags":["plant","grass"],
+"image":"images/plants/canada_mountain_ricegrass.jpg",
+"description":"A slender woodland grass found in upland forest habitats.",
+"identification":"Graceful grass with narrow leaves and open airy seed heads that droop slightly. Seeds resemble small grains of rice hanging from fine branches."
+},
+
+{
+"id":"canada_wood_nettle",
+"name":"Canada Wood-nettle",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest","riparian"],
+"tags":["plant","edible"],
+"calories":42,
+"image":"images/plants/canada_wood_nettle.jpg",
+"description":"A native nettle species whose young shoots are edible when cooked.",
+"identification":"Tall herb with opposite serrated leaves and small greenish flowers. Stems and leaves are covered in fine stinging hairs similar to other nettles. Often found in moist rich woodland soils."
+},
+
+{
+"id":"cancer_root",
+"name":"Cancer Root",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","parasitic"],
+"image":"images/plants/cancer_root.jpg",
+"description":"A parasitic woodland plant lacking chlorophyll.",
+"identification":"Leafless pale plant with upright stems covered in small scale-like structures instead of leaves. Flowers are small and tubular, often yellowish or purplish. Usually grows near tree roots in shaded forests."
+},
+
+{
+"id":"cases_ladies_tresses",
+"name":"Case's Ladies'-tresses",
+"type":"Plant",
+"season":["late_summer"],
+"regions":["meadow","wetland"],
+"tags":["plant","orchid"],
+"image":"images/plants/cases_ladies_tresses.jpg",
+"description":"A small native orchid producing spiral clusters of white flowers.",
+"identification":"Slender plant with narrow leaves mostly near the base. Tiny white flowers grow in a spiral pattern along the upper stem, giving the plant a twisted appearance."
+},
+
+{
+"id":"catbriar",
+"name":"Catbriar",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest_edge","thicket"],
+"tags":["vine"],
+"image":"images/plants/catbriar.jpg",
+"description":"A thorny climbing vine common in thickets and forest edges.",
+"identification":"Woody vine with sharp prickles along the stems. Leaves are broad and oval with several strong parallel veins. Often forms tangled thickets that can be difficult to walk through."
+},
+
+{
+"id":"checkered_rattlesnake_plantain",
+"name":"Checkered Rattlesnake Plantain",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","orchid"],
+"image":"images/plants/checkered_rattlesnake_plantain.jpg",
+"description":"A small woodland orchid known for its distinctive patterned leaves.",
+"identification":"Low forest plant with dark green leaves marked by white net-like veins forming a checkered pattern. Produces a slender stalk with small white flowers."
+},
+
+{
+"id":"christmas_fern",
+"name":"Christmas Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["all"],
+"regions":["forest"],
+"tags":["fern"],
+"image":"images/plants/christmas_fern.jpg",
+"description":"An evergreen woodland fern common in shaded forests.",
+"identification":"Fern with dark green leathery fronds that remain green through winter. Fronds are divided into many small leaflets shaped somewhat like tiny Christmas stockings."
+},
+
+{
+"id":"cinnamon_fern",
+"name":"Cinnamon Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["wetland","forest"],
+"tags":["fern"],
+"image":"images/plants/cinnamon_fern.jpg",
+"description":"Large fern common in swamps and wet forests.",
+"identification":"Fern forming large vase-shaped clumps with tall arching green fronds. Fertile fronds appear upright in the center and turn cinnamon brown when producing spores."
+},
+
+{
+"id":"cinquefoil",
+"name":"Cinquefoil",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","disturbed"],
+"tags":["plant","flower"],
+"image":"images/plants/cinquefoil.jpg",
+"description":"A low herb with yellow flowers resembling small wild strawberries.",
+"identification":"Low growing plant with leaves divided into five leaflets radiating from a central point. Produces small yellow five-petaled flowers and spreads across open sunny soils."
+},
+
+{
+"id":"coltsfoot",
+"name":"Coltsfoot",
+"type":"Plant",
+"season":["spring"],
+"regions":["disturbed","roadsides"],
+"tags":["plant","medicinal"],
+"image":"images/plants/coltsfoot.jpg",
+"description":"A perennial herb that flowers very early in spring before its leaves appear.",
+"identification":"Bright yellow dandelion-like flowers appear on scaly leafless stems in early spring. After flowering, large rounded leaves shaped somewhat like a horse's hoof emerge from the ground."
+},
+
+{
+"id":"common_hair_grass",
+"name":"Common Hair Grass",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","forest_edge","wetland"],
+"tags":["plant","grass"],
+"image":"images/plants/common_hair_grass.jpg",
+"description":"A fine-leaved grass common in moist open habitats.",
+"identification":"Slender grass forming loose tufts with very fine leaves. Produces delicate airy flower clusters that shimmer in the wind and often have a purplish tint."
+},
+
+{
+"id":"common_speedwell",
+"name":"Common Speedwell",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","disturbed"],
+"tags":["plant","flower"],
+"image":"images/plants/common_speedwell.jpg",
+"description":"A small herb with bright blue flowers often found in fields and disturbed soils.",
+"identification":"Low creeping plant with opposite oval leaves and small bright blue flowers with four petals, one usually smaller than the others. Flowers grow on slender stems above the leaves."
+},
+
+{
+"id":"common_woodrush",
+"name":"Common Woodrush",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","grasslike"],
+"image":"images/plants/common_woodrush.jpg",
+"description":"A woodland plant resembling grasses but belonging to the rush family.",
+"identification":"Clump-forming plant with narrow grass-like leaves covered in fine hairs along the edges. Flower clusters form small brownish spikes at the ends of stems."
+},
+
+{
+"id":"cow_parsnip",
+"name":"Cow-parsnip",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest_edge","meadow","riparian"],
+"tags":["plant","edible"],
+"calories":40,
+"image":"images/plants/cow_parsnip.jpg",
+"description":"A tall plant of the carrot family with large white flower clusters.",
+"identification":"Large plant up to 2 m tall with huge broad leaves divided into three lobes. Produces large umbrella-shaped clusters of small white flowers. Stems are thick and hollow."
+},
+
+{
+"id":"cow_wheat",
+"name":"Cow-wheat",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant"],
+"image":"images/plants/cow_wheat.jpg",
+"description":"A small woodland herb that is partially parasitic on nearby plants.",
+"identification":"Slender plant with opposite narrow leaves and small yellow tubular flowers. Often found growing in shaded coniferous forests."
+},
+
+{
+"id":"creeping_bent_grass",
+"name":"Creeping Bent-grass",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","wetland","disturbed"],
+"tags":["plant","grass"],
+"image":"images/plants/creeping_bent_grass.jpg",
+"description":"A spreading grass that forms dense mats in moist soils.",
+"identification":"Low grass that spreads by creeping stems along the ground. Leaves are narrow and smooth. Produces delicate branching seed heads typical of bent-grasses."
+},
+
+{
+"id":"creeping_buttercup",
+"name":"Creeping Buttercup",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","wetland"],
+"tags":["plant","flower","toxic"],
+"image":"images/plants/creeping_buttercup.jpg",
+"description":"A spreading buttercup species with glossy yellow flowers.",
+"identification":"Low plant spreading by creeping runners. Leaves are divided into three leaflets. Produces shiny yellow five-petaled flowers typical of buttercups."
+},
+
+{
+"id":"creeping_snowberry",
+"name":"Creeping Snowberry",
+"type":"Plant",
+"season":["fall"],
+"regions":["forest"],
+"tags":["plant","shrub"],
+"image":"images/plants/creeping_snowberry.jpg",
+"description":"A low creeping shrub producing white berries.",
+"identification":"Trailing plant forming mats across the forest floor. Leaves are small, rounded, and opposite. Produces small white berries that resemble tiny snowballs."
+},
+
+{
+"id":"crested_wood_fern",
+"name":"Crested Wood Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["wetland","forest"],
+"tags":["fern"],
+"image":"images/plants/crested_wood_fern.jpg",
+"description":"A medium-sized fern common in moist woodland habitats.",
+"identification":"Fern with upright fronds that taper toward the tip. Leaflets are deeply divided and arranged in a feather-like pattern. Often found in damp forest soils."
+},
+
+{
+"id":"cut_leaved_avens",
+"name":"Cut-leaved Avens",
+"type":"Plant",
+"season":["summer"],
+"regions":["meadow","forest_edge"],
+"tags":["plant","flower"],
+"image":"images/plants/cut_leaved_avens.jpg",
+"description":"A perennial herb producing yellow flowers and deeply divided leaves.",
+"identification":"Plant with basal leaves divided into many narrow lobes giving them a finely cut appearance. Produces small yellow flowers on slender stems."
+},
+
+{
+"id":"dandelion",
+"name":"Dandelion",
+"type":"Food",
+"subcategory":"Plant",
+"season":["spring","summer","fall"],
+"regions":["meadow","disturbed","urban"],
+"tags":["food","plant","medicinal"],
+"calories":45,
+"image":"images/plants/dandelion.jpg",
+"description":"A very common edible plant whose leaves, flowers, and roots are widely used for food and herbal preparations.",
+"identification":"Low plant forming a basal rosette of deeply toothed leaves. Produces bright yellow flower heads on hollow leafless stalks. After flowering, seeds form a round white puffball that disperses in the wind."
+},
+
+{
+"id":"deweys_sedge",
+"name":"Dewey's Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest","wetland"],
+"tags":["plant","sedge"],
+"image":"images/plants/deweys_sedge.jpg",
+"description":"A woodland sedge commonly found in moist forest soils.",
+"identification":"Grass-like plant with narrow leaves and triangular stems typical of sedges. Seed spikes are slender and drooping slightly. Often forms loose clumps in moist shaded forests."
+},
+
+{
+"id":"dog_tooth_violet",
+"name":"Dog Tooth Violet",
+"type":"Plant",
+"season":["spring"],
+"regions":["forest"],
+"tags":["plant","flower"],
+"image":"images/plants/dog_tooth_violet.jpg",
+"description":"A spring woodland flower also known as trout lily.",
+"identification":"Low plant with two mottled leaves marked with brownish spots. Produces a single nodding yellow flower with strongly recurved petals. Appears early in spring before forest canopy closes."
+},
+
+{
+"id":"downy_alder",
+"name":"Downy Alder",
+"type":"Plant",
+"season":["all"],
+"regions":["wetland","riparian"],
+"tags":["shrub"],
+"image":"images/plants/downy_alder.jpg",
+"description":"A wetland shrub related to birch that produces small cone-like seed structures.",
+"identification":"Shrub with oval leaves that have serrated edges and a soft downy texture beneath. Produces woody cone-like seed clusters and elongated catkins. Often grows along streams and wetlands."
+},
+
+{
+"id":"downy_rattlesnake_plantain",
+"name":"Downy Rattlesnake Plantain",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","orchid"],
+"image":"images/plants/downy_rattlesnake_plantain.jpg",
+"description":"A woodland orchid with patterned leaves.",
+"identification":"Low forest orchid with oval leaves marked by pale veins forming a net-like pattern. Leaves are slightly hairy or downy. Flower stalk carries small white orchid flowers."
+},
+
+{
+"id":"drooping_wood_sedge",
+"name":"Drooping Wood Sedge",
+"type":"Plant",
+"season":["summer"],
+"regions":["forest"],
+"tags":["plant","sedge"],
+"image":"images/plants/drooping_wood_sedge.jpg",
+"description":"A woodland sedge species with drooping seed spikes.",
+"identification":"Grass-like plant with narrow leaves and triangular stems. Seed spikes hang downward from slender stalks, giving the plant a drooping appearance."
+},
+
+{
+"id":"dutchmans_breeches",
+"name":"Dutchman's Breeches",
+"type":"Plant",
+"season":["spring"],
+"regions":["hardwood_forest"],
+"tags":["plant","flower"],
+"image":"images/plants/dutchmans_breeches.jpg",
+"description":"A delicate spring woodland flower named for its distinctive shape.",
+"identification":"Low spring plant with finely divided fern-like leaves. Produces hanging white flowers shaped like tiny pairs of pants or breeches along a curved stem."
+},
+
+{
+"id":"dwarf_mistletoe",
+"name":"Dwarf Mistletoe",
+"type":"Plant",
+"season":["all"],
+"regions":["forest"],
+"tags":["plant","parasitic"],
+"image":"images/plants/dwarf_mistletoe.jpg",
+"description":"A parasitic plant that grows on conifer branches.",
+"identification":"Small yellow-green parasitic plant growing directly from tree branches. Forms clusters of short jointed stems emerging from infected branches, often causing swollen deformities in the host tree."
+},
+
+{
+"id":"dwarf_raspberry",
+"name":"Dwarf Raspberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["summer"],
+"regions":["forest"],
+"tags":["food","berry"],
+"calories":52,
+"image":"images/food/dwarf_raspberry.jpg",
+"description":"A low woodland raspberry producing small edible berries.",
+"identification":"Very low trailing raspberry plant with compound leaves divided into three leaflets. Produces small white flowers followed by bright red raspberries close to the ground."
+},
+
+{
+"id":"early_leaf_brome_grass",
+"name":"Early-leaf Brome Grass",
+"type":"Plant",
+"season":["spring","summer"],
+"regions":["forest","disturbed"],
+"tags":["plant","grass"],
+"image":"images/plants/early_leaf_brome_grass.jpg",
+"description":"A woodland grass that emerges early in the growing season.",
+"identification":"Medium-height grass with broad leaves and drooping clusters of seed heads. Leaves often appear early in spring before many other grasses."
+},
+
+{
+"id":"eastern_spreading_wood_fern",
+"name":"Eastern Spreading Wood Fern",
+"type":"Plant",
+"subcategory":"Fern",
+"season":["summer"],
+"regions":["forest"],
+"tags":["fern"],
+"image":"images/plants/eastern_spreading_wood_fern.jpg",
+"description":"A woodland fern forming spreading colonies.",
+"identification":"Fern with arching fronds that spread outward from the center. Fronds are finely divided into many narrow leaflets and grow in moist shaded forests."
+},
+
+{
+"id":"elliotts_goldenrod",
+"name":"Elliott's Goldenrod",
+"type":"Plant",
+"season":["late_summer"],
+"regions":["wetland","bog"],
+"tags":["plant","flower"],
+"image":"images/plants/elliotts_goldenrod.jpg",
+"description":"A goldenrod species typically found in wetlands.",
+"identification":"Upright plant with narrow leaves and clusters of small yellow flowers arranged along the upper stem. Often grows in moist or boggy soils."
+},
+
+{
+"id":"wild_blueberry",
+"name":"Wild Blueberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["summer"],
+"regions":["barrens","mixedwood"],
+"tags":["food","berry"],
+"calories":0.25,
+"vitamins":["vitamin_c","vitamin_k","manganese"],
+"image":"images/food/wild_blueberry.jpg",
+"description":"Low bush blueberries common across Nova Scotia barrens. Extremely high in antioxidants.",
+"identification":"Low shrubs usually 10–40 cm tall forming large patches in open barrens. Leaves are small, oval, and smooth edged. Berries are dark blue with a dusty pale coating. The plant often turns bright red in autumn. Common in acidic sandy soils."
+},
+
+{
+"id":"crowberry",
+"name":"Crowberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["late_summer","fall"],
+"regions":["coastal","barrens"],
+"tags":["food","berry"],
+"calories":0.1,
+"vitamins":["vitamin_c"],
+"image":"images/food/crowberry.jpg",
+"description":"Dark purple berries from Empetrum nigrum growing in coastal barrens and tundra-like environments.",
+"identification":"Very low creeping shrub forming dense mats. Leaves are small and needle-like but softer than conifer needles. Berries are shiny black and about the size of small blueberries. Common in windy coastal barrens and acidic peat soils."
+},
+
+{
+"id":"partridgeberry",
+"name":"Partridgeberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["fall","winter"],
+"regions":["forest","bog"],
+"tags":["food","berry"],
+"calories":0.15,
+"vitamins":["vitamin_c"],
+"image":"images/food/partridgeberry.jpg",
+"description":"Small red berries that persist through winter. Mild flavor but historically eaten fresh or in preserves.",
+"identification":"Low creeping vine with pairs of small rounded leaves. Leaves are dark green and glossy with pale veins. Berries are bright red and often remain on the plant through winter. Usually found in mossy forest floors and peat bog edges."
+},
+
+{
+"id":"wild_raspberry",
+"name":"Wild Raspberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["summer"],
+"regions":["disturbed","forest_edge"],
+"tags":["food","berry"],
+"calories":0.23,
+"vitamins":["vitamin_c","manganese"],
+"image":"images/food/wild_raspberry.jpg",
+"description":"Common along trails and disturbed ground. Highly nutritious with strong flavor.",
+"identification":"Shrubby plant with thorny stems. Leaves are compound with 3–5 serrated leaflets and pale undersides. Fruit is bright red and hollow when picked, separating cleanly from the core. Often grows in sunny clearings and roadsides."
+},
+
+{
+"id":"blackberry",
+"name":"Wild Blackberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["late_summer"],
+"regions":["coastal","disturbed"],
+"tags":["food","berry"],
+"calories":0.19,
+"vitamins":["vitamin_c","vitamin_k","manganese"],
+"image":"images/food/blackberry.jpg",
+"description":"Common coastal berry with high vitamin content.",
+"identification":"Thorny brambles with arching canes. Leaves typically have 3–5 leaflets with serrated edges. Fruits are black when ripe and composed of many small drupelets. Unlike raspberries, the fruit core stays attached when picked."
+},
+
+{
+"id":"lowbush_cranberry",
+"name":"Wild Cranberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["fall"],
+"regions":["bog","wetland"],
+"tags":["food","berry"],
+"calories":0.2,
+"vitamins":["vitamin_c","vitamin_e"],
+"image":"images/food/wild_cranberry.jpg",
+"description":"Acidic berries from peat bogs. Traditionally used in preserves and sauces.",
+"identification":"Low creeping vine growing through moss in peat bogs. Leaves are small, oval, and evergreen. Berries are bright red and glossy. Plants prefer very wet acidic peat soils and are often found alongside sphagnum moss."
+},
+
+{
+"id":"bunchberry",
+"name":"Bunchberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["summer"],
+"regions":["forest"],
+"tags":["food","berry"],
+"calories":0.53,
+"vitamins":["vitamin_c"],
+"image":"images/food/bunchberry.jpg",
+"description":"Bright red berry clusters from Cornus canadensis. Mild flavor."
+},
+
+{
+"id":"bearberry",
+"name":"Bearberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["fall"],
+"regions":["coastal","barrens"],
+"tags":["food","berry","medicinal"],
+"calories":0.16,
+"vitamins":["vitamin_c"],
+"image":"images/food/bearberry.jpg",
+"description":"Dry red berries from Arctostaphylos uva-ursi. Edible but mealy; often used medicinally.",
+"identification":"Low trailing shrub forming mats over sandy soil. Leaves are thick, smooth, and spoon-shaped. Berries are bright red and firm with a dry texture. Common on dry coastal barrens and sandy soils."
+},
+
+{
+"id":"elderberry",
+"name":"Elderberry",
+"type":"Food",
+"subcategory":"Berry",
+"season":["late_summer"],
+"regions":["disturbed","riverbanks"],
+"tags":["food","berry","medicinal"],
+"calories":0.32,
+"vitamins":["vitamin_c","vitamin_a","potassium"],
+"image":"images/food/elderberry.jpg",
+"description":"Clusters of dark berries. Must be cooked before consumption.",
+"identification":"Large shrub or small tree with opposite compound leaves containing 5–7 leaflets. White flower clusters appear in early summer followed by drooping clusters of dark purple berries. Often found near streams and disturbed soils."
+},
+
+{
+"id":"juniper_berries",
+"name":"Juniper Berries",
+"type":"Food",
+"subcategory":"Berry",
+"season":["fall","winter"],
+"regions":["coastal","barrens"],
+"tags":["food","berry","spice","medicinal"],
+"calories":0.13,
+"vitamins":["vitamin_c","flavonoids"],
+"image":"images/food/juniper_berries.jpg",
+"description":"Fleshy cones of juniper shrubs used as a spice and tea ingredient.",
+"identification":"Low evergreen shrub with sharp needle-like leaves arranged in whorls of three. The berries are actually cones and start green before turning bluish-purple with a waxy coating. Strong aromatic scent when crushed."
+},
+{
   
   "id": "sugar_maple",
   "name": "Sugar Maple",
@@ -20,7 +1040,8 @@
     "bark_mature": "images/trees/sugar_maple_bark_mature.jpg",
     "bark_young": "images/trees/sugar_maple_bark_young.jpg"
   },
-  "description": "A dense, high-value hardwood known for producing sweet sap used to make maple syrup."
+  "description": "A dense, high-value hardwood known for producing sweet sap used to make maple syrup.",
+  "identification":"Medium to large hardwood with opposite branching and 5-lobed leaves with smooth rounded sinuses between lobes. Leaves turn bright orange or red in autumn. Mature bark is dark gray with long vertical plates that curl outward slightly. Young bark is smooth and gray. When a leaf stem is broken it exudes a clear sap. Often found in well-drained hardwood forests."
 },
 {
   "id": "red_maple",
@@ -41,7 +1062,8 @@
     "bark_mature": "images/trees/red_maple_bark_mature.jpg",
     "bark_young": "images/trees/red_maple_bark_young.jpg"
   },
-  "description": "A common and adaptable hardwood found throughout Nova Scotia."
+  "description": "A common and adaptable hardwood found throughout Nova Scotia.",
+  "identification":"Medium sized hardwood with opposite branching and 3–5 lobed leaves with serrated edges and V-shaped sinuses. Leaf undersides are pale. Twigs and buds often reddish. Mature bark is gray with scaly ridges while young bark is smooth and light gray. Often grows in wetter soils than sugar maple including swamps and edges of wetlands."
 },
 {
   "id": "striped_maple",
@@ -62,7 +1084,8 @@
     "bark_mature": "images/trees/striped_maple_bark_mature.jpg",
     "bark_young": "images/trees/striped_maple_bark_young.jpg"
   },
-  "description": "A small understory maple with limited timber value but useful for small tools and walking sticks."
+  "description": "A small understory maple with limited timber value but useful for small tools and walking sticks.",
+  "identification":"Small understory tree usually under 10 m tall with large three-lobed leaves that resemble goose feet. Bark is smooth green with distinct vertical white stripes when young. Leaves are broad and soft with finely serrated edges. Typically found in shaded forest understory on moist slopes."
 },
 {
   "id": "yellow_birch",
@@ -83,7 +1106,8 @@
     "bark_mature": "images/trees/yellow_birch_bark_mature.jpg",
     "bark_young": "images/trees/yellow_birch_bark_young.jpg"
   },
-  "description": "A strong and durable hardwood with a wintergreen scent in its bark."
+  "description": "A strong and durable hardwood with a wintergreen scent in its bark.",
+  "identification":"Tall hardwood with distinctive shiny yellow-bronze bark that peels in thin curly strips. Leaves are oval with pointed tips and finely serrated edges. When scraped or crushed the bark smells strongly of wintergreen. Often grows on mossy logs or well-drained forest soils."
 },
 {
   "id": "white_birch",
@@ -104,7 +1128,8 @@
     "bark_mature": "images/trees/white_birch_bark_mature.jpg",
     "bark_young": "images/trees/white_birch_bark_young.jpg"
   },
-  "description": "Recognizable by its white papery bark, excellent for fire starting and traditional craft."
+  "description": "Recognizable by its white papery bark, excellent for fire starting and traditional craft.",
+  "identification":"Medium sized tree with bright white bark that peels in thin papery sheets. Bark often marked with horizontal black lenticels. Leaves are triangular with coarse serrations. Branches often slender and slightly drooping. Common in disturbed forests and clearings."
 },
 {
   "id": "ironwood",
@@ -125,7 +1150,8 @@
     "bark_mature": "images/trees/ironwood_bark_mature.jpg",
     "bark_young": "images/trees/ironwood_bark_young.jpg"
   },
-  "description": "One of the hardest native woods, excellent for wedges and mallets."
+  "description": "One of the hardest native woods, excellent for wedges and mallets.",
+  "identification":"Small to medium understory tree with very hard wood. Bark forms narrow vertical strips that appear shredded. Leaves resemble birch or elm leaves with serrated edges and pointed tips. Seed clusters resemble small hops."
 },
 {
   "id": "red_spruce",
@@ -146,7 +1172,8 @@
     "bark_mature": "images/trees/red_spruce_bark_mature.jpg",
     "bark_young": "images/trees/red_spruce_bark_young.jpg"
   },
-  "description": "Nova Scotia’s provincial tree and prized tonewood."
+  "description": "Nova Scotia’s provincial tree and prized tonewood.",
+  "identification":"Evergreen conifer with short stiff needles about 1–2 cm long attached individually to the twig. Needles are four-sided and sharp. Cones are small reddish brown and hang downward. Bark is reddish brown and flaky on mature trees."
 },
 {
   "id": "white_pine",
@@ -167,7 +1194,8 @@
     "bark_mature": "images/trees/white_pine_bark_mature.jpg",
     "bark_young": "images/trees/white_pine_bark_young.jpg"
   },
-  "description": "A tall, valuable softwood used historically for ship masts."
+  "description": "A tall, valuable softwood used historically for ship masts.",
+  "identification":"Tall conifer with long soft needles growing in bundles of five. Needles are flexible and bluish green. Mature bark forms large dark plates. Cones are long and slender often 10–20 cm."
 },
 {
   "id": "balsam_fir",
@@ -188,7 +1216,8 @@
     "bark_mature": "images/trees/balsam_fir_bark_mature.jpg",
     "bark_young": "images/trees/balsam_fir_bark_young.jpg"
   },
-  "description": "A common softwood with aromatic resin blisters."
+  "description": "A common softwood with aromatic resin blisters.",
+  "identification":"Evergreen with flat soft needles arranged along the twig. Underside of needles shows two white stripes. Bark contains resin blisters that release sticky aromatic sap when punctured. Cones grow upright on branches."
 },
 {
   "id": "grey_birch",
@@ -209,7 +1238,8 @@
     "bark_mature": "images/trees/grey_birch_bark_mature.jpg",
     "bark_young": "images/trees/grey_birch_bark_young.jpg"
   },
-  "description": "A short-lived birch species typically found in disturbed areas."
+  "description": "A short-lived birch species typically found in disturbed areas.",
+  "identification":"Smaller birch with chalky white bark but rougher than paper birch. Bark does not peel as freely. Often has triangular leaves and many slender branches giving the crown a delicate appearance. Common in poor or disturbed soils."
 },
 {
   "id": "white_ash",
@@ -230,7 +1260,8 @@
     "bark_mature": "images/trees/white_ash_bark_mature.jpg",
     "bark_young": "images/trees/white_ash_bark_young.jpg"
   },
-  "description": "Extremely strong and shock-resistant wood ideal for tool handles."
+  "description": "Extremely strong and shock-resistant wood ideal for tool handles.",
+  "identification":"Tall hardwood with opposite branching and compound leaves made of 5–9 leaflets. Leaflets are oval and pointed with smooth or lightly serrated edges. Mature bark forms diamond-shaped ridges. Twigs are stout and gray with opposite buds. Typically found in well-drained soils."
 },
 {
   "id": "trembling_aspen",
@@ -251,7 +1282,8 @@
     "bark_mature": "images/trees/trembling_aspen_bark_mature.jpg",
     "bark_young": "images/trees/trembling_aspen_bark_young.jpg"
   },
-  "description": "A fast-growing, lightweight hardwood common in regenerating forests."
+  "description": "A fast-growing, lightweight hardwood common in regenerating forests.",
+  "identification":"Medium tree with smooth pale greenish white bark and small round leaves with flattened stems that cause the leaves to tremble in the wind. Leaves have fine rounded teeth. Often forms large clonal stands connected by root systems."
 },
 {
   "id": "largetooth_aspen",
@@ -272,7 +1304,8 @@
     "bark_mature": "images/trees/largetooth_aspen_bark_mature.jpg",
     "bark_young": "images/trees/largetooth_aspen_bark_young.jpg"
   },
-  "description": "A low-density hardwood often found in mixed stands."
+  "description": "A low-density hardwood often found in mixed stands.",
+  "identification":"Similar to trembling aspen but leaves are larger with coarse widely spaced teeth. Bark is grayish and rougher on older trees. Leaf stems are slightly flattened causing leaves to flutter in wind."
 },
 {
   "id": "balsam_poplar",
@@ -293,7 +1326,8 @@
     "bark_mature": "images/trees/balsam_poplar_bark_mature.jpg",
     "bark_young": "images/trees/balsam_poplar_bark_young.jpg"
   },
-  "description": "Produces fragrant resinous buds traditionally used for salves."
+  "description": "Produces fragrant resinous buds traditionally used for salves.",
+  "identification":"Tall tree with sticky fragrant buds that release a strong balsamic scent when crushed. Leaves are triangular to oval with pointed tips and lighter colored undersides. Bark is gray and deeply furrowed on mature trees. Usually found along rivers and moist soils."
 },
 {
   "id": "american_beech",
@@ -314,7 +1348,8 @@
     "bark_mature": "images/trees/beech_bark_mature.jpg",
     "bark_young": "images/trees/beech_bark_young.jpg"
   },
-  "description": "A smooth-barked hardwood producing edible beech nuts."
+  "description": "A smooth-barked hardwood producing edible beech nuts.",
+  "identification":"Medium to large tree with smooth light gray bark that remains smooth even on mature trees. Leaves are oval with sharp pointed teeth and very straight side veins. Buds are long, narrow, and sharply pointed. Often forms dense stands in mature hardwood forests."
 },
 {
   "id": "red_oak",
@@ -335,7 +1370,8 @@
     "bark_mature": "images/trees/red_oak_bark_mature.jpg",
     "bark_young": "images/trees/red_oak_bark_young.jpg"
   },
-  "description": "A strong hardwood that produces acorns and valuable timber."
+  "description": "A strong hardwood that produces acorns and valuable timber.",
+  "identification":"Large hardwood with leaves that have pointed lobes ending in small bristles. Bark is dark gray with long vertical ridges and lighter colored streaks. Acorns are relatively large with shallow caps. Common in upland forests."
 },
 {
   "id": "white_elm",
@@ -356,7 +1392,8 @@
     "bark_mature": "images/trees/white_elm_bark_mature.jpg",
     "bark_young": "images/trees/white_elm_bark_young.jpg"
   },
-  "description": "A flexible hardwood historically used in boat building."
+  "description": "A flexible hardwood historically used in boat building.",
+  "identification":"Large tree with asymmetrical leaf bases where one side of the leaf attaches lower than the other. Leaves are rough textured with double serrations. Mature bark is deeply furrowed with interlacing ridges. Crown often forms a vase-like shape."
 },
 {
   "id": "white_spruce",
@@ -377,7 +1414,8 @@
     "bark_mature": "images/trees/white_spruce_bark_mature.jpg",
     "bark_young": "images/trees/white_spruce_bark_young.jpg"
   },
-  "description": "A fast-growing spruce commonly used in construction."
+  "description": "A fast-growing spruce commonly used in construction.",
+  "identification":"Evergreen with bluish-green needles that are four-sided and stiff but less sharp than red spruce. Crushing needles produces a strong resinous smell. Cones are slender and pale brown. Bark is gray and scaly."
 },
 {
   "id": "black_spruce",
@@ -398,7 +1436,8 @@
     "bark_mature": "images/trees/black_spruce_bark_mature.jpg",
     "bark_young": "images/trees/black_spruce_bark_young.jpg"
   },
-  "description": "A common boreal species often found in wet soils."
+  "description": "A common boreal species often found in wet soils.",
+  "identification":"Narrow conical evergreen common in bogs. Needles are short bluish green and slightly curved. Cones are small and often remain attached to branches for many years. Bark is thin and dark gray."
 },
 {
   "id": "red_pine",
@@ -419,7 +1458,8 @@
     "bark_mature": "images/trees/red_pine_bark_mature.jpg",
     "bark_young": "images/trees/red_pine_bark_young.jpg"
   },
-  "description": "A straight-trunked pine often planted for timber."
+  "description": "A straight-trunked pine often planted for timber.",
+  "identification":"Pine with needles growing in bundles of two. Needles are long, stiff, and slightly twisted. Bark is reddish brown and scaly on the upper trunk giving the tree a reddish appearance."
 },
 {
   "id": "jack_pine",
@@ -440,7 +1480,8 @@
     "bark_mature": "images/trees/jack_pine_bark_mature.jpg",
     "bark_young": "images/trees/jack_pine_bark_young.jpg"
   },
-  "description": "A fire-adapted pine species suited to sandy soils."
+  "description": "A fire-adapted pine species suited to sandy soils.",
+  "identification":"Small to medium pine with short twisted needles growing in pairs. Cones are small and often curved. Branches are irregular and the tree often has a crooked appearance. Common in sandy soils."
 },
 {
   "id": "eastern_hemlock",
@@ -461,7 +1502,8 @@
     "bark_mature": "images/trees/eastern_hemlock_bark_mature.jpg",
     "bark_young": "images/trees/eastern_hemlock_bark_young.jpg"
   },
-  "description": "A long-lived shade-tolerant conifer with tannin-rich bark."
+  "description": "A long-lived shade-tolerant conifer with tannin-rich bark.",
+  "identification":"Shade tolerant evergreen with short flat needles that have two white lines on the underside. Needles attach individually along the twig in a flattened arrangement. Cones are small and oval. Branch tips often droop."
 },
 {
   "id": "tamarack",
@@ -482,7 +1524,8 @@
     "bark_mature": "images/trees/tamarack_bark_mature.jpg",
     "bark_young": "images/trees/tamarack_bark_young.jpg"
   },
-  "description": "A deciduous conifer known for its rot-resistant wood."
+  "description": "A deciduous conifer known for its rot-resistant wood.",
+  "identification":"Unique deciduous conifer with soft needles growing in clusters along short shoots. Needles turn bright yellow in autumn before falling. Cones are small and upright on branches. Often found in wetlands and bogs."
 },
 {
   "id": "eastern_white_cedar",
@@ -503,7 +1546,8 @@
     "bark_mature": "images/trees/eastern_white_cedar_bark_mature.jpg",
     "bark_young": "images/trees/eastern_white_cedar_bark_young.jpg"
   },
-  "description": "A durable rot-resistant softwood historically used in canoes and shingles."
+  "description": "A durable rot-resistant softwood historically used in canoes and shingles.",
+  "identification":"Evergreen with flattened fan-like sprays of scale leaves rather than needles. Bark is fibrous and reddish brown peeling in long strips. Often found in wetlands or limestone rich soils."
 },
 
     {
@@ -514,7 +1558,8 @@
       "regions": ["forest"],
       "tags": ["adhesive", "sealant"],
       "image": "images/spruce_resin.jpg",
-      "description": "A viscous sap that can be collected by cutting the bark of a spruce tree."
+      "description": "A viscous sap that can be collected by cutting the bark of a spruce tree.",
+      "identification":"Sticky amber colored sap found oozing from wounds in spruce bark. Often forms hardened translucent lumps on the trunk. Has a strong pine-like scent and becomes brittle when cooled."
     },
     {
       "id": "spruce_glue",
@@ -706,7 +1751,8 @@
   "insulation_rating": 0.60,
   "tags": ["fuel","insulation","charcoal","high_temp"],
   "image": "images/charcoal.jpg",
-  "description": "Charcoal is primarily a fuel (high carbon, porous). It has relatively low thermal conductivity in loose, packed form and can be used as a high-temperature packing material or filler that provides insulation while also serving as fuel. When used as packing, it can support very high service temperatures in a charcoal furnace; it is combustible and should not be used as a protective facing."
+  "description": "Charcoal is primarily a fuel (high carbon, porous). It has relatively low thermal conductivity in loose, packed form and can be used as a high-temperature packing material or filler that provides insulation while also serving as fuel. When used as packing, it can support very high service temperatures in a charcoal furnace; it is combustible and should not be used as a protective facing.",
+  "identification":"Lightweight black carbonized wood produced by heating wood in low oxygen conditions. Pieces retain the original wood grain structure but break easily and leave black powder when rubbed."
 },
 {
   "id": "pumice_tuff",
